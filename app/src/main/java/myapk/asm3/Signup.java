@@ -24,7 +24,7 @@ public class Signup extends AppCompatActivity {
         userPassword = passwordText.getText().toString();
         TextView nameText = findViewById(R.id.name);
         userName = nameText.getText().toString();
-        Intent intent = new Intent(Signup.this, HobbyPick.class);
+        Intent intent = new Intent(Signup.this, Interests.class);
         startActivity(intent);
 //        new Signup.PostStudent().execute();
     }
