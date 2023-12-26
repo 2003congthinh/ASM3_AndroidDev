@@ -1,3 +1,33 @@
 <resources>
     <string name="app_name">ASM3</string>
+    <string-array name="interest">
+        <item>--Please choose what is your interest/hobby--</item>
+        <item>Football</item>
+        <item>Basketball</item>
+        <item>Badminton</item>
+        <item>Martial Art</item>
+        <item>Tennis</item>
+        <item>Volleyball</item>
+        <item>Boardgames</item>
+        <item>Academic centered</item>
+        <item>Photography</item>
+        <item>Dance</item>
+        <item>Drawing</item>
+        <item>Singing</item>
+        <item>Voluntary</item>
+        <item>Outdoor activities</item>
+        <item>Fashion</item>
+    </string-array>
+    <string-array name="gender">
+        <item>--Please choose your gender--</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Non-binary</item>
+    </string-array>
+    <string-array name="partner">
+        <item>--Please choose who you want to meet--</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Surprise me</item>
+    </string-array>
 </resources>
