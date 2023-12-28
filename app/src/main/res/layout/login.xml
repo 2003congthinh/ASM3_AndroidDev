@@ -52,6 +52,7 @@
             android:layout_gravity="center_horizontal"/>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/gmailBtn"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -77,6 +78,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/facebookBtn"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

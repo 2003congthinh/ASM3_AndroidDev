@@ -13,8 +13,43 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Let us know what is your interest"
+            android:text="Tell us all about you."
             android:textSize="30dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What is your name."
+            android:textSize="20dp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:inputType="text"
+            android:hint="Your name?"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What is your age."
+            android:textSize="20dp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:inputType="number"
+            android:hint="Your age?"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Let us know what is your interest"
+            android:textSize="20dp"
             android:layout_margin="10dp"/>
 
         <Spinner
@@ -27,7 +62,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Let us know what is your gender"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:layout_margin="10dp"/>
 
         <Spinner
@@ -40,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Let us know who you wanna meet"
-            android:textSize="30dp"
+            android:textSize="20dp"
             android:layout_margin="10dp"/>
 
         <Spinner
