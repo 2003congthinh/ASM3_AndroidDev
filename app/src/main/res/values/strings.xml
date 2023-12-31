@@ -30,5 +30,32 @@
         <item>Female</item>
         <item>Surprise me</item>
     </string-array>
+    <string-array name="programs">
+        <item>--Please choose your program--</item>
+        <item>Business</item>
+        <item>Accounting</item>
+        <item>Economics and Finance</item>
+        <item>Human Resource Management</item>
+        <item>International Business</item>
+        <item>Management</item>
+        <item>Logistics and Supply Chain Management</item>
+        <item>Digital Business</item>
+        <item>Digital Marketing</item>
+        <item>Tourism and Hospitality Management</item>
+        <item>Design - Digital Media</item>
+        <item>Design Studies</item>
+        <item>Game Design</item>
+        <item>Digital Film and Video</item>
+        <item>Languages</item>
+        <item>Professional Communication</item>
+        <item>Fashion - Enterprise</item>
+        <item>Psychology</item>
+        <item>Aviation Management</item>
+        <item>Information Technology</item>
+        <item>Software Engineering</item>
+        <item>Robotics and Mechatronics Engineering</item>
+        <item>Electronic and Computer Systems Engineering</item>
+        <item>Food Technology and Nutrition</item>
+    </string-array>
     <string name="web_client_id">411932074622-9r6kgpjncf9ga57in4lokb37g151cj54.apps.googleusercontent.com</string>
 </resources>

@@ -13,9 +13,11 @@ public class Interests extends AppCompatActivity {
     private String selectedInterest;
     private String selectedGender;
     private String selectedPartner;
+    private String selectedPrograms;
     private Spinner interests;
     private Spinner gender;
     private Spinner partner;
+    private Spinner programs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,16 @@ public class Interests extends AppCompatActivity {
         );
         adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         partner.setAdapter(adapter3);
+
+        // Program spinner
+        programs = findViewById(R.id.program);
+        ArrayAdapter<CharSequence> adapter4 = ArrayAdapter.createFromResource(
+                this,
+                R.array.programs,
+                android.R.layout.simple_spinner_item
+        );
+        adapter4.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        programs.setAdapter(adapter4);
 
         // Set up the listeners for the spinners
         // Interest spinner
@@ -87,11 +99,24 @@ public class Interests extends AppCompatActivity {
                 // Handle the case when nothing is selected
             }
         });
+
+        // Programs spinner
+        programs.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedPrograms = programs.getSelectedItem().toString();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Handle the case when nothing is selected
+            }
+        });
     }
 
     public void Submit(View view){
         Log.d("SelectedInterest", selectedInterest);
         Log.d("SelectedGender", selectedGender);
         Log.d("SelectedPartner", selectedPartner);
+        Log.d("SelectedPrograms", selectedPrograms);
     }
 }

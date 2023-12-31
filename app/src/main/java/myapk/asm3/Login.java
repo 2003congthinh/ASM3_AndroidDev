@@ -64,6 +64,11 @@ public class Login extends AppCompatActivity {
                                     // with your backend.
                                     String email = credential.getId();
                                     Toast.makeText(Login.this, email, Toast.LENGTH_SHORT).show();
+
+                                    // Go to Home
+                                    Intent intent = new Intent(Login.this, HomeScreen.class);
+                                    startActivity(intent);
+
                                     Log.d("TAG", "Got ID token.");
                                 }
                             } catch (ApiException e) {
