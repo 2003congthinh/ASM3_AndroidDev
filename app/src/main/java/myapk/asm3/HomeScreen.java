@@ -1,5 +1,5 @@
 package myapk.asm3;
-
+// Swipe function are from: https://github.com/Diolor/Swipecards.git
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
