@@ -41,4 +41,7 @@ dependencies {
 
     // Swipe card
     implementation("com.lorentzos.swipecards:library:1.0.9")
+    implementation("com.github.bumptech.glide:glide:4.12.0") // Use the latest version from the official Glide GitHub repository
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+
 }

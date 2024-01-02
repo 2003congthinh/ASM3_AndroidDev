@@ -9,9 +9,16 @@
     <com.lorentzos.flingswipe.SwipeFlingAdapterView
         android:id="@+id/frame"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         app:max_visible="4"
         app:min_adapter_stack="6"
         app:rotation_degrees="16"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:menu="@menu/bottom_nav"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
