@@ -1,10 +1,18 @@
 package myapk.asm3;
 // Swipe function are from: https://github.com/Diolor/Swipecards.git
+// Current location functions are from Week 5
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -13,135 +21,96 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
 
 public class HomeScreen extends AppCompatActivity {
-    // Swipe functions
-    private CustomImageAdapter imageAdapter;
-    private ArrayList<String> al;
-    private ArrayAdapter<String> arrayAdapter;
-    private int i;
-    SwipeFlingAdapterView flingContainer;
-
     // Bottom navigation
     private BottomNavigationView bottomNav;
     private FrameLayout menu;
+
+    // Get cur loc
+//    Location cur_loc;
+//    protected FusedLocationProviderClient fusedLocationProviderClient;
+//    protected LocationRequest mLocationRequest;
+//    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+//    private static final long UPDATE_INTERVAL = 20*1000 ;
+//    private static final long FASTEST_INTERVAL = 10*1000 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
 
+        // Get cur loc
+//        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+//        requestPermission();
+//        startLocationUpdate();
+//        Log.d("Current location: ", String.valueOf(cur_loc.getLatitude() + cur_loc.getLongitude()));
+//        Toast.makeText(HomeScreen.this, "Current location: " + cur_loc.getLatitude() + cur_loc.getLongitude(), Toast.LENGTH_SHORT).show();
+
         // Bottom nav
         bottomNav = findViewById(R.id.bottomNav);
+        menu = findViewById(R.id.fragment);
+
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemID = item.getItemId();
-                if (itemID == R.id.home){
-                    Toast.makeText(HomeScreen.this, "Already at Home", Toast.LENGTH_SHORT).show();
+                if (itemID == R.id.home) {
+                    switchFragment(new HomeFragment(), false);
                 } else if (itemID == R.id.chat) {
-                    Toast.makeText(HomeScreen.this, "Not exist yet", Toast.LENGTH_SHORT).show();
+                    switchFragment(new ChatFragment(), false);
                 } else if (itemID == R.id.profile) {
-                    Intent intent = new Intent(HomeScreen.this, PersonalInfo.class);
-                    startActivity(intent);
+                    switchFragment(new ProfileFragment(), false);
+                } else if (itemID == R.id.heat) {
+                    switchFragment(new HeatFragment(), false);
                 }
-                return false;
+                return true;
             }
         });
 
-        // Swipe function
-//        al = new ArrayList<>();
-//        al.add("php");
-//        al.add("c");
-//        al.add("python");
-//        al.add("java");
-//        al.add("html");
-//        al.add("c++");
-//        al.add("css");
-//        al.add("javascript");
-        al = new ArrayList<>();
-        for (int j = 1; j <= 10; j++) {
-            al.add("flower" + j);
+        switchFragment( new HomeFragment(), true);
+    }
+
+    // Bottom nav handler
+    private void switchFragment(Fragment fragment, boolean isOn){
+        FragmentManager manage = getSupportFragmentManager();
+        FragmentTransaction transaction = manage.beginTransaction();
+        if (isOn) {
+            transaction.add(R.id.fragment, fragment);
+        } else {
+            transaction.replace(R.id.fragment, fragment);
         }
-
-//        arrayAdapter = new ArrayAdapter<>(this, R.layout.item, R.id.helloText, al );
-        imageAdapter = new CustomImageAdapter(this, R.layout.item, al);
-
-        flingContainer = findViewById(R.id.frame);
-//        flingContainer.setAdapter(arrayAdapter);
-        flingContainer.setAdapter(imageAdapter);
-
-        flingContainer.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
-            @Override
-            public void removeFirstObjectInAdapter() {
-                // this is the simplest way to delete an object from the Adapter (/AdapterView)
-                Log.d("LIST", "removed object!");
-                al.remove(0);
-//                arrayAdapter.notifyDataSetChanged();
-                imageAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onLeftCardExit(Object dataObject) {
-                //Do something on the left!
-                //You also have access to the original object.
-                //If you want to use it just cast it (String) dataObject
-                Toast.makeText(HomeScreen.this, "Left!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onRightCardExit(Object dataObject) {
-                Toast.makeText(HomeScreen.this, "Right!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onAdapterAboutToEmpty(int itemsInAdapter) {
-                // Ask for more data here
-//                al.add("XML ".concat(String.valueOf(i)));
-//                arrayAdapter.notifyDataSetChanged();
-//                Log.d("LIST", "notified");
-//                i++;
-                Toast.makeText(HomeScreen.this, "Out of image", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onScroll(float scrollProgressPercent) {
-                View view = flingContainer.getSelectedView();
-                view.findViewById(R.id.item_swipe_right_indicator).setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0);
-                view.findViewById(R.id.item_swipe_left_indicator).setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
-            }
-        });
-
-
-        // Optionally add an OnItemClickListener
-        flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClicked(int itemPosition, Object dataObject) {
-                makeToast(HomeScreen.this, "Clicked!");
-            }
-        });
-
+        transaction.commit();
     }
 
-    static void makeToast(Context ctx, String s){
-        Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
-    }
-
-
-//    @OnClick(R.id.right)
-//    public void right() {
-//        /**
-//         * Trigger the right event manually.
-//         */
-//        flingContainer.getTopCardListener().selectRight();
+    // Get cur loc
+//    private void requestPermission(){
+//        ActivityCompat.requestPermissions(HomeScreen.this, new String[]{
+//                        android.Manifest.permission.ACCESS_FINE_LOCATION},
+//                MY_PERMISSIONS_REQUEST_LOCATION);
 //    }
 //
-//    @OnClick(R.id.left)
-//    public void left() {
-//        flingContainer.getTopCardListener().selectLeft();
+//    @SuppressLint({"MissingPermission", "RestrictedApi"})
+//    private void startLocationUpdate(){
+//        mLocationRequest = new LocationRequest();
+//        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+//        mLocationRequest.setInterval(UPDATE_INTERVAL);
+//        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+//        fusedLocationProviderClient.requestLocationUpdates(mLocationRequest, new LocationCallback() {
+//            @Override
+//            public void onLocationResult(LocationResult locationResult){
+//                super.onLocationResult(locationResult);
+//                cur_loc = locationResult.getLastLocation();
+//            }
+//        }, null);
 //    }
 }

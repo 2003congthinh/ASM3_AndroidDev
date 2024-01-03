@@ -6,18 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".HomeScreen">
 
-    <com.lorentzos.flingswipe.SwipeFlingAdapterView
-        android:id="@+id/frame"
+    <FrameLayout
+        android:id="@+id/fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:max_visible="4"
-        app:min_adapter_stack="6"
-        app:rotation_degrees="16"/>
+        android:layout_height="match_parent"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         app:menu="@menu/bottom_nav"
         app:layout_constraintBottom_toBottomOf="parent" />
 

@@ -60,4 +60,5 @@
     <string name="web_client_id">411932074622-9r6kgpjncf9ga57in4lokb37g151cj54.apps.googleusercontent.com</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_map_api_key">AIzaSyB_sIZ6bziC7B8OVm8o6AuCrEcJXFbSKk0</string>
 </resources>
