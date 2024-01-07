@@ -1,15 +1,32 @@
 package myapk.asm3;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class Interests extends AppCompatActivity {
+
+    private String status ="";
+    private String email;
+    private String password = "";
+    private String userName;
+    private String userDescription;
+    private int userAge;
+    private int userPhone;
     private String selectedInterest;
     private String selectedGender;
     private String selectedPartner;
@@ -18,10 +35,17 @@ public class Interests extends AppCompatActivity {
     private Spinner gender;
     private Spinner partner;
     private Spinner programs;
+    private ImageView profilePict;
+    private TextView profileText;
+    private final int GALLERY_REQ_CODE = 1000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.interests);
+
+        email = getIntent().getStringExtra("userEmail");
+        password = getIntent().getStringExtra("userPassword");
+
         // Get references to filter spinners
         // Interest spinner
         interests = findViewById(R.id.interest);
@@ -111,6 +135,29 @@ public class Interests extends AppCompatActivity {
                 // Handle the case when nothing is selected
             }
         });
+
+        // Insert profile picture
+        profilePict = findViewById(R.id.profilePict);
+        profileText = findViewById(R.id.profileText);
+        profilePict.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent profPict = new Intent(Intent.ACTION_PICK);
+                profPict.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(profPict, GALLERY_REQ_CODE);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK) {
+            if (requestCode==GALLERY_REQ_CODE) {
+                profilePict.setImageURI(data.getData());
+                profileText.setText("");
+            }
+        }
     }
 
     public void Submit(View view){
@@ -118,5 +165,34 @@ public class Interests extends AppCompatActivity {
         Log.d("SelectedGender", selectedGender);
         Log.d("SelectedPartner", selectedPartner);
         Log.d("SelectedPrograms", selectedPrograms);
+        TextView emailText = findViewById(R.id.userName);
+        userName = emailText.getText().toString();
+        TextView descriptionText = findViewById(R.id.userDescription);
+        userDescription = descriptionText.getText().toString();
+        TextView myAge = findViewById(R.id.userAge);
+        userAge = Integer.parseInt(myAge.getText().toString());
+        TextView myPhone = findViewById(R.id.userPhone);
+        userPhone = Integer.parseInt(myPhone.getText().toString());
+        new PostInterests().execute();
+    }
+
+    //    POST DATA
+    private class PostInterests extends AsyncTask<Void,Void,Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            status = HttpHandler.postInterests(email,userPhone,userName,password,userDescription,userAge,selectedInterest,selectedGender,selectedPartner,selectedPrograms);
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Log.d("Interest", "Status: " + status);
+            if(status.equals("Success: OK")){
+                Toast.makeText(Interests.this, status, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Interests.this, HomeScreen.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(Interests.this, "Something's wrong", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

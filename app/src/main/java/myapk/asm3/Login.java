@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 public class Login extends AppCompatActivity {
     private String userEmail="";
     private String userPassword="";
+    private String status ="";
     private SignInClient oneTapClient;
     private BeginSignInRequest signUpRequest;
     private static final int REQ_ONE_TAP = 2;  // Can be any integer unique to the Activity.
@@ -62,12 +64,13 @@ public class Login extends AppCompatActivity {
                                 if (idToken !=  null) {
                                     // Got an ID token from Google. Use it to authenticate
                                     // with your backend.
-                                    String email = credential.getId();
-                                    Toast.makeText(Login.this, email, Toast.LENGTH_SHORT).show();
+                                    userEmail = credential.getId();
+                                    Toast.makeText(Login.this, userEmail, Toast.LENGTH_SHORT).show();
 
-                                    // Go to Home
-                                    Intent intent = new Intent(Login.this, HomeScreen.class);
-                                    startActivity(intent);
+                                    // Authentication
+                                    new PostAccountWithGmail().execute();
+//                                    Intent intent = new Intent(Login.this, HomeScreen.class);
+//                                    startActivity(intent);
 
                                     Log.d("TAG", "Got ID token.");
                                 }
@@ -108,7 +111,48 @@ public class Login extends AppCompatActivity {
         userEmail = emailText.getText().toString();
         TextView passwordText = findViewById(R.id.password);
         userPassword = passwordText.getText().toString();
-//        new PostAccount().execute();
+        new PostAccount().execute();
+    }
+    //    POST DATA
+    private class PostAccount extends AsyncTask<Void,Void,Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            status = HttpHandler.postRequestLogin(userEmail,userPassword);
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Log.d("Login", "Status: " + status);
+            if(status.equals("Success: OK")){
+                Toast.makeText(Login.this, status, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Login.this, HomeScreen.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(Login.this, "Something's wrong", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private class PostAccountWithGmail extends AsyncTask<Void,Void,Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            status = HttpHandler.postRequestLoginByGmail(userEmail);
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Log.d("Login", "Status: " + status);
+            if(status.equals("Success: OK")){
+                Toast.makeText(Login.this, status, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Login.this, HomeScreen.class);
+                startActivity(intent);
+            } else {
+                Toast.makeText(Login.this, "This is a new account", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Login.this, Interests.class);
+                intent.putExtra("userEmail", userEmail);
+                startActivity(intent);
+            }
+        }
     }
 
     public void goToSignup(View view) {
