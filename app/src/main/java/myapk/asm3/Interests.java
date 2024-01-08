@@ -19,8 +19,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Interests extends AppCompatActivity {
-
-    private String status ="";
     private String email;
     private String password = "";
     private String userName;
@@ -173,26 +171,18 @@ public class Interests extends AppCompatActivity {
         userAge = Integer.parseInt(myAge.getText().toString());
         TextView myPhone = findViewById(R.id.userPhone);
         userPhone = Integer.parseInt(myPhone.getText().toString());
-        new PostInterests().execute();
+        Intent intent = new Intent(Interests.this, OTP.class);
+        intent.putExtra("email", email);
+        intent.putExtra("password", password);
+        intent.putExtra("name", userName);
+        intent.putExtra("description", userDescription);
+        intent.putExtra("age", userAge);
+        intent.putExtra("phone", userPhone);
+        intent.putExtra("interest", selectedInterest);
+        intent.putExtra("gender", selectedGender);
+        intent.putExtra("partner", selectedPartner);
+        intent.putExtra("program", selectedPrograms);
+        startActivity(intent);
     }
 
-    //    POST DATA
-    private class PostInterests extends AsyncTask<Void,Void,Void> {
-        @Override
-        protected Void doInBackground(Void... voids) {
-            status = HttpHandler.postInterests(email,userPhone,userName,password,userDescription,userAge,selectedInterest,selectedGender,selectedPartner,selectedPrograms);
-            return null;
-        }
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            Log.d("Interest", "Status: " + status);
-            if(status.equals("Success: OK")){
-                Toast.makeText(Interests.this, status, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Interests.this, HomeScreen.class);
-                startActivity(intent);
-            } else {
-                Toast.makeText(Interests.this, "Something's wrong", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 }
