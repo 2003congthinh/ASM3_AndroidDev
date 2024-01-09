@@ -28,7 +28,7 @@ public class Interests extends AppCompatActivity {
     private String userName;
     private String userDescription;
     private int userAge;
-    private int userPhone;
+    private String userPhone;
     private String selectedInterest;
     private String selectedGender;
     private String selectedPartner;
@@ -180,7 +180,7 @@ public class Interests extends AppCompatActivity {
         TextView myAge = findViewById(R.id.userAge);
         userAge = Integer.parseInt(myAge.getText().toString());
         TextView myPhone = findViewById(R.id.userPhone);
-        userPhone = Integer.parseInt(myPhone.getText().toString());
+        userPhone = myPhone.getText().toString();
         Intent intent = new Intent(Interests.this, OTP.class);
         intent.putExtra("email", email);
         intent.putExtra("password", password);

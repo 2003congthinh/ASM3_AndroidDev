@@ -1,5 +1,7 @@
 package myapk.asm3;
 
+import android.util.Log;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -41,6 +43,7 @@ public Multipart()
  * @param value field value
  */
 public void addFormField(String name, String value)throws IOException  {
+        Log.d("Name and Value: ", name + ", " + value);
         request.writeBytes(this.twoHyphens + this.boundary + this.crlf);
         request.writeBytes("Content-Disposition: form-data; name=\"" + name + "\""+ this.crlf);
         request.writeBytes("Content-Type: text/plain; charset=UTF-8" + this.crlf);

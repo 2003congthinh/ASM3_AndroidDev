@@ -12,6 +12,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -24,7 +25,7 @@ public class OTP extends AppCompatActivity {
     private String userName;
     private String userDescription;
     private int userAge;
-    private int userPhone;
+    private String userPhone;
     private String selectedInterest;
     private String selectedGender;
     private String selectedPartner;
@@ -41,13 +42,16 @@ public class OTP extends AppCompatActivity {
         userName = getIntent().getStringExtra("name");
         userDescription = getIntent().getStringExtra("description");
         userAge = getIntent().getIntExtra("age", 0);
-        userPhone = getIntent().getIntExtra("phone", 0);
+        userPhone = getIntent().getStringExtra("phone");
         selectedInterest = getIntent().getStringExtra("interest");
         selectedGender = getIntent().getStringExtra("gender");
         selectedPartner = getIntent().getStringExtra("partner");
         selectedPrograms = getIntent().getStringExtra("program");
         imageUri = getIntent().getParcelableExtra("pict");
 
+        // Set phone number
+        TextView phone = findViewById(R.id.phone);
+        phone.setText(userPhone);
     }
     public void Update(View view){
         new PostInterests().execute();
@@ -68,7 +72,8 @@ public class OTP extends AppCompatActivity {
                         File imageFile = new File(imagePath);
                         if (imageFile.exists()) {
                             m1.addFilePart("image", imageFile);
-                            m1.addFormField("name", userName);
+                            m1.addFormField("userName", userName);
+                            m1.addFormField("userName", userName);
                             Log.d("FileSend: ", "File: " + userName);
                             m1.addFormField("email", email);
                             m1.addFormField("password", password);
@@ -83,7 +88,7 @@ public class OTP extends AppCompatActivity {
                             m1.addFormField("status", "normal");
                             m1.addFormField("age", String.valueOf(userAge));
                             m1.addFormField("phone", String.valueOf(userPhone));
-                            m1.finish();
+                            status = m1.finish();
                         } else {
                             Log.d("FileError", "Image file does not exist!");
                         }
@@ -118,14 +123,12 @@ public class OTP extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            Log.d("Interest", "Status: " + status);
-            if(status.equals("Success: OK")){
+            if(status.equals("")){
                 Log.d("SelectedInterest", selectedInterest);
                 Log.d("SelectedGender", selectedGender);
                 Log.d("SelectedPartner", selectedPartner);
                 Log.d("SelectedPrograms", selectedPrograms);
                 Log.d("Pict", String.valueOf(imageUri));
-                Toast.makeText(OTP.this, status, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(OTP.this, HomeScreen.class);
                 startActivity(intent);
             } else {
