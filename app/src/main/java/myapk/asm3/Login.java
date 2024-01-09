@@ -8,10 +8,12 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,12 +36,16 @@ public class Login extends AppCompatActivity {
     private String status ="";
     private SignInClient oneTapClient;
     private BeginSignInRequest signUpRequest;
+    private static final int MY_PERMISSIONS_REQUEST_STORAGE = 1;
+    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private static final int REQ_ONE_TAP = 2;  // Can be any integer unique to the Activity.
     private boolean showOneTapUI = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        requestPermissions();
 
         // Gmail login function
         oneTapClient = Identity.getSignInClient(this);
@@ -106,6 +112,19 @@ public class Login extends AppCompatActivity {
             }
         });
     }
+
+    // Request permissions
+    private void requestPermissions(){
+        if (ActivityCompat.checkSelfPermission(Login.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(Login.this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
+        }
+        if (ActivityCompat.checkSelfPermission(Login.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(Login.this,
+                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_STORAGE);
+        }
+    }
+
     public void goToHome(View view) {
         TextView emailText = findViewById(R.id.email);
         userEmail = emailText.getText().toString();

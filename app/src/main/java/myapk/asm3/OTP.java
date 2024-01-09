@@ -68,7 +68,9 @@ public class OTP extends AppCompatActivity {
                         File imageFile = new File(imagePath);
                         if (imageFile.exists()) {
                             m1.addFilePart("image", imageFile);
+                            Log.d("FileSend: ", "File: " + userName);
                             m1.addFormField("name", userName);
+                            Log.d("FileSend: ", "File: " + userName);
                             m1.addFormField("email", email);
                             m1.addFormField("password", password);
                             m1.addFormField("role", "user");
@@ -84,17 +86,17 @@ public class OTP extends AppCompatActivity {
                             m1.addFormField("phone", String.valueOf(userPhone));
                             m1.finish();
                         } else {
-                            Log.e("FileError", "Image file does not exist!");
+                            Log.d("FileError", "Image file does not exist!");
                         }
                     } else {
-                        Log.e("FileError", "Failed to get image path from URI.");
+                        Log.d("FileError", "Failed to get image path from URI.");
                     }
                 } else {
                     // Handle the case when READ_EXTERNAL_STORAGE permission is not granted
-                    Log.e("PermissionError", "READ_EXTERNAL_STORAGE permission not granted.");
+                    Log.d("PermissionError", "READ_EXTERNAL_STORAGE permission not granted.");
                 }
             } catch (IOException e) {
-                Log.e("IOException", "Error creating Multipart: " + e.getMessage());
+                Log.d("IOException", "Error creating Multipart: " + e.getMessage());
                 e.printStackTrace();
             }
             return null;

@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,7 +41,6 @@ public class HomeScreen extends AppCompatActivity {
     Location cur_loc;
     protected FusedLocationProviderClient fusedLocationProviderClient;
     protected LocationRequest mLocationRequest;
-    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private static final long UPDATE_INTERVAL = 20*1000 ;
     private static final long FASTEST_INTERVAL = 10*1000 ;
 
@@ -51,8 +51,8 @@ public class HomeScreen extends AppCompatActivity {
 
         // Get cur loc
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        requestPermission();
         startLocationUpdate();
+
 
         // Bottom nav
         bottomNav = findViewById(R.id.bottomNav);
@@ -91,12 +91,6 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     // Get cur loc
-    private void requestPermission(){
-        ActivityCompat.requestPermissions(HomeScreen.this, new String[]{
-                        android.Manifest.permission.ACCESS_FINE_LOCATION},
-                MY_PERMISSIONS_REQUEST_LOCATION);
-    }
-
     @SuppressLint({"MissingPermission", "RestrictedApi"})
     private void startLocationUpdate(){
         mLocationRequest = new LocationRequest();
