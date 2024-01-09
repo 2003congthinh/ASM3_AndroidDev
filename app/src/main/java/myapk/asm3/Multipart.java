@@ -6,9 +6,9 @@ import java.net.URL;
 import java.nio.file.Files;
 
 public class Multipart {
-    static String URL = "http://192.168.55.107:8888";
+//    static String URL = "http://192.168.55.107:8888";
 //    static String URL = "http://192.168.155.62:8888";
-//    static String URL = "https://asm3android-a0efc67bf4a3.herokuapp.com";
+    static String URL = "https://asm3android-a0efc67bf4a3.herokuapp.com";
     private HttpURLConnection httpConn;
     private DataOutputStream request;
     private final String boundary =  "*****";

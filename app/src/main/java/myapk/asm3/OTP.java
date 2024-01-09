@@ -68,7 +68,6 @@ public class OTP extends AppCompatActivity {
                         File imageFile = new File(imagePath);
                         if (imageFile.exists()) {
                             m1.addFilePart("image", imageFile);
-                            Log.d("FileSend: ", "File: " + userName);
                             m1.addFormField("name", userName);
                             Log.d("FileSend: ", "File: " + userName);
                             m1.addFormField("email", email);
