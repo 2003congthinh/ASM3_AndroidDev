@@ -15,10 +15,15 @@ import java.net.URL;
 
 public class HttpHandler {
     public static String loginEmail = "";
-//    static String URL = "http://192.168.55.107:8888";
+    static String URL = "http://192.168.55.107:8888";
 //    static String URL = "http://192.168.155.62:8888";
-    static String URL = "https://asm3android-a0efc67bf4a3.herokuapp.com";
-    private static final String BOUNDARY = "*****";
+//    static String URL = "https://asm3android-a0efc67bf4a3.herokuapp.com";
+
+    private HttpURLConnection httpConn;
+    private DataOutputStream request;
+    private final String boundary =  "*****";
+    private final String crlf = "\r\n";
+    private final String twoHyphens = "--";
 
 
     //POST
@@ -105,88 +110,6 @@ public class HttpHandler {
             status = "Error - JSONException: " + e.getMessage();
         }
         return status;
-    }
-
-    public static String postInterests(String email, int phone, String name, String password, String description, int age, String interest, String gender, String partner, String programs, String imagePath) {
-        String status = "";
-
-        try {
-            // Step 1 - prepare the connection
-            URL url = new URL(URL + "/register");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + BOUNDARY);
-            conn.setRequestProperty("Accept", "application/json");
-            conn.setDoOutput(true);
-
-            // Step 2 - prepare the request body
-            DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-            writeFormField("email", email, os);
-            writeFormField("phone", String.valueOf(phone), os);
-            writeFormField("password", password, os);
-            writeFormField("name", name, os);
-            writeFormField("description", description, os);
-            writeFormField("age", String.valueOf(age), os);
-            writeFormField("interest", interest, os);
-            writeFormField("gender", gender, os);
-            writeFormField("partner", partner, os);
-            writeFormField("program", programs, os);
-
-            // Attach image if imagePath is provided
-            if (imagePath != null) {
-                File imageFile = new File(imagePath);
-                writeImageFile(imageFile, os);
-            }
-
-            // Close the request body
-            os.writeBytes("--" + BOUNDARY + "--\r\n");
-            os.flush();
-            os.close();
-
-            // Step 3 - Read the response code and message
-            int responseCode = conn.getResponseCode();
-            String responseMessage = conn.getResponseMessage();
-
-            // Handle the response appropriately
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                // Successfully connected
-                status = "Success: " + responseMessage;
-            } else {
-                // Handle other response codes
-                status = "Error - " + responseCode + ": " + responseMessage;
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            status = "Error - MalformedURLException: " + e.getMessage();
-        } catch (IOException e) {
-            e.printStackTrace();
-            status = "Error - IOException: " + e.getMessage();
-        }
-
-        return status;
-    }
-
-    private static void writeFormField(String fieldName, String value, DataOutputStream os) throws IOException {
-        os.writeBytes("--" + BOUNDARY + "\r\n");
-        os.writeBytes("Content-Disposition: form-data; name=\"" + fieldName + "\"\r\n\r\n");
-        os.writeBytes(value + "\r\n");
-        os.flush();
-    }
-
-    private static void writeImageFile(File imageFile, DataOutputStream os) throws IOException {
-        os.writeBytes("--" + BOUNDARY + "\r\n");
-        os.writeBytes("Content-Disposition: form-data; name=\"image\"; filename=\"" + imageFile.getName() + "\"\r\n");
-        os.writeBytes("Content-Type: image/jpeg\r\n\r\n");
-
-        FileInputStream fis = new FileInputStream(imageFile);
-        byte[] buffer = new byte[4096];
-        int bytesRead;
-        while ((bytesRead = fis.read(buffer)) != -1) {
-            os.write(buffer, 0, bytesRead);
-        }
-        os.writeBytes("\r\n");
-        os.flush();
-        fis.close();
     }
 
 
