@@ -6,6 +6,8 @@ import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
 
 public class Interests extends AppCompatActivity {
     private String email;
@@ -34,6 +38,8 @@ public class Interests extends AppCompatActivity {
     private Spinner partner;
     private Spinner programs;
     private ImageView profilePict;
+    private Uri imageUri;
+    private File imageFile;
     private TextView profileText;
     private final int GALLERY_REQ_CODE = 1000;
     @Override
@@ -152,17 +158,36 @@ public class Interests extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode==RESULT_OK) {
             if (requestCode==GALLERY_REQ_CODE) {
-                profilePict.setImageURI(data.getData());
-                profileText.setText("");
+                imageUri = data.getData();
+                try {
+                    profilePict.setImageURI(imageUri);
+                    profileText.setText("");
+
+                    // Convert Uri to File
+                    String imagePath = getImagePath(imageUri);
+                    imageFile = new File(imagePath);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
-
+    // Convert Uri to File path
+    private String getImagePath(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(uri, projection, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String imagePath = cursor.getString(column_index);
+        cursor.close();
+        return imagePath;
+    }
     public void Submit(View view){
         Log.d("SelectedInterest", selectedInterest);
         Log.d("SelectedGender", selectedGender);
         Log.d("SelectedPartner", selectedPartner);
         Log.d("SelectedPrograms", selectedPrograms);
+        Log.d("Pict", String.valueOf(profilePict));
         TextView emailText = findViewById(R.id.userName);
         userName = emailText.getText().toString();
         TextView descriptionText = findViewById(R.id.userDescription);
@@ -182,6 +207,7 @@ public class Interests extends AppCompatActivity {
         intent.putExtra("gender", selectedGender);
         intent.putExtra("partner", selectedPartner);
         intent.putExtra("program", selectedPrograms);
+        intent.putExtra("pict", imageFile);
         startActivity(intent);
     }
 

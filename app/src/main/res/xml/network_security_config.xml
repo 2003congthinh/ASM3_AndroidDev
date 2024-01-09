@@ -2,5 +2,7 @@
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">192.168.55.107</domain>
+        <domain includeSubdomains="true">192.168.155.62</domain>
+        <domain includeSubdomains="true">asm3android-a0efc67bf4a3.herokuapp.com</domain>
     </domain-config>
 </network-security-config>
