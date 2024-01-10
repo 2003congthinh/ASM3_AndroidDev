@@ -1,13 +1,16 @@
 package myapk.asm3;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.telephony.SmsManager;
@@ -26,7 +29,7 @@ import java.util.Random;
 
 public class OTP extends AppCompatActivity {
     // SMS
-    private EditText otp1,otp2,otp3;
+    private EditText otp1;
     protected MyReceiver myReceiver;
     protected IntentFilter intentFilter;
     public static final String OTP_CODE = "myapk.asm3.ACTION_OTP_CODE";
@@ -50,8 +53,6 @@ public class OTP extends AppCompatActivity {
         setContentView(R.layout.otp);
 
         otp1 = findViewById(R.id.otp1);
-        otp2 = findViewById(R.id.otp2);
-        otp3 = findViewById(R.id.otp3);
 
         // Create account info
         email = getIntent().getStringExtra("email");
@@ -59,8 +60,9 @@ public class OTP extends AppCompatActivity {
         userName = getIntent().getStringExtra("name");
         userDescription = getIntent().getStringExtra("description");
         userAge = getIntent().getIntExtra("age", 0);
-        String p = getIntent().getStringExtra("phone");
-        userPhone = "+84" + p;
+//        String p = getIntent().getStringExtra("phone");
+//        userPhone = "+84" + p;
+        userPhone = getIntent().getStringExtra("phone");
         selectedInterest = getIntent().getStringExtra("interest");
         selectedGender = getIntent().getStringExtra("gender");
         selectedPartner = getIntent().getStringExtra("partner");
@@ -70,55 +72,26 @@ public class OTP extends AppCompatActivity {
         TextView phone = findViewById(R.id.phone);
         phone.setText(userPhone);
 
-        registerService();
-        OTPinput();
-    }
-    private void registerService(){
+        generateAndSendOTP();
+
+        // Register the broadcast receiver
         myReceiver = new MyReceiver();
-        intentFilter = new IntentFilter();
-        intentFilter.addAction(OTP_CODE);  // Use the constant from MyReceiver
-        Log.d("Message: ", OTP_CODE);
-        intentFilter.addAction("android.intent.action.PHONE_STATE");
+        intentFilter = new IntentFilter(OTP.OTP_CODE);
         registerReceiver(myReceiver, intentFilter);
     }
+    private void generateAndSendOTP() {
+        // Generate a random number between 101 and 999
+        int otpNumber = new Random().nextInt((999 - 101) + 1) + 101;
 
-    private void OTPinput() {
-        otp1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        // Convert the generated number to a string
+        String otpString = String.valueOf(otpNumber);
 
-            }
+        // Concatenate the generated OTP with a message
+        String otpMessage = "Your OTP is: " + otpString;
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!s.toString().trim().isEmpty()) {
-                    otp2.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        otp2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!s.toString().trim().isEmpty()) {
-                    otp3.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+        // Send the OTP message via SMS
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(userPhone, null, otpMessage, null, null);
     }
 
     public void Update(View view){

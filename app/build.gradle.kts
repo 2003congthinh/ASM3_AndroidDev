@@ -35,6 +35,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    implementation("com.google.android.gms:play-services-auth-api-phone:18.0.1")
 
     // Gmail authentication
     implementation("com.google.android.gms:play-services-auth:20.7.0")
