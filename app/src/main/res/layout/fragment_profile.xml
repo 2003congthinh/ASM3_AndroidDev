@@ -17,6 +17,7 @@
             android:layout_height="130dp"
             app:cardCornerRadius="100dp">
             <ImageView
+                android:id="@+id/avatar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/janedoe"/>

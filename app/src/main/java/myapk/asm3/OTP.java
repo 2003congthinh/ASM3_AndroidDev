@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -21,19 +22,23 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 public class OTP extends AppCompatActivity {
     // SMS
     private EditText otp1,otp2,otp3;
-//    protected MyReceiver myReceiver;
-//    protected IntentFilter intentFilter;
+    protected MyReceiver myReceiver;
+    protected IntentFilter intentFilter;
+    public static final String OTP_CODE = "myapk.asm3.ACTION_OTP_CODE";
+
+
     private String status ="";
     private String email;
     private String password = "";
     private String userName;
     private String userDescription;
     private int userAge;
-    private String userPhone;
+    public static String userPhone;
     private String selectedInterest;
     private String selectedGender;
     private String selectedPartner;
@@ -54,7 +59,8 @@ public class OTP extends AppCompatActivity {
         userName = getIntent().getStringExtra("name");
         userDescription = getIntent().getStringExtra("description");
         userAge = getIntent().getIntExtra("age", 0);
-        userPhone = getIntent().getStringExtra("phone");
+        String p = getIntent().getStringExtra("phone");
+        userPhone = "+84" + p;
         selectedInterest = getIntent().getStringExtra("interest");
         selectedGender = getIntent().getStringExtra("gender");
         selectedPartner = getIntent().getStringExtra("partner");
@@ -64,7 +70,16 @@ public class OTP extends AppCompatActivity {
         TextView phone = findViewById(R.id.phone);
         phone.setText(userPhone);
 
+        registerService();
         OTPinput();
+    }
+    private void registerService(){
+        myReceiver = new MyReceiver();
+        intentFilter = new IntentFilter();
+        intentFilter.addAction(OTP_CODE);  // Use the constant from MyReceiver
+        Log.d("Message: ", OTP_CODE);
+        intentFilter.addAction("android.intent.action.PHONE_STATE");
+        registerReceiver(myReceiver, intentFilter);
     }
 
     private void OTPinput() {
