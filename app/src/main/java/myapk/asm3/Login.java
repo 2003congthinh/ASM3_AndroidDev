@@ -36,8 +36,7 @@ public class Login extends AppCompatActivity {
     private String status ="";
     private SignInClient oneTapClient;
     private BeginSignInRequest signUpRequest;
-    private static final int MY_PERMISSIONS_REQUEST_STORAGE = 1;
-    private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+    private static final int MY_PERMISSIONS_REQUEST = 1;
     private static final int REQ_ONE_TAP = 2;  // Can be any integer unique to the Activity.
     private boolean showOneTapUI = true;
     @Override
@@ -115,13 +114,13 @@ public class Login extends AppCompatActivity {
 
     // Request permissions
     private void requestPermissions(){
-        if (ActivityCompat.checkSelfPermission(Login.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(Login.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(Login.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(Login.this,
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
-        }
-        if (ActivityCompat.checkSelfPermission(Login.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(Login.this,
-                    new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_STORAGE);
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                            android.Manifest.permission.SEND_SMS,
+                            android.Manifest.permission.READ_PHONE_STATE,
+                            android.Manifest.permission.READ_CALL_LOG}, MY_PERMISSIONS_REQUEST);
         }
     }
 

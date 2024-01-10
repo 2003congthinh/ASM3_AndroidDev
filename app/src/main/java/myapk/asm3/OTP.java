@@ -3,14 +3,18 @@ package myapk.asm3;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +23,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class OTP extends AppCompatActivity {
+    // SMS
+    private EditText otp1,otp2,otp3;
+//    protected MyReceiver myReceiver;
+//    protected IntentFilter intentFilter;
     private String status ="";
     private String email;
     private String password = "";
@@ -36,6 +44,10 @@ public class OTP extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.otp);
 
+        otp1 = findViewById(R.id.otp1);
+        otp2 = findViewById(R.id.otp2);
+        otp3 = findViewById(R.id.otp3);
+
         // Create account info
         email = getIntent().getStringExtra("email");
         password = getIntent().getStringExtra("password");
@@ -49,12 +61,53 @@ public class OTP extends AppCompatActivity {
         selectedPrograms = getIntent().getStringExtra("program");
         imageUri = getIntent().getParcelableExtra("pict");
 
-        // Set phone number
         TextView phone = findViewById(R.id.phone);
         phone.setText(userPhone);
+
+        OTPinput();
     }
+
+    private void OTPinput() {
+        otp1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().trim().isEmpty()) {
+                    otp2.requestFocus();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        otp2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().trim().isEmpty()) {
+                    otp3.requestFocus();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
     public void Update(View view){
-        new PostInterests().execute();
+//        new PostInterests().execute();
     }
     //    POST DATA
     private class PostInterests extends AsyncTask<Void,Void,Void> {

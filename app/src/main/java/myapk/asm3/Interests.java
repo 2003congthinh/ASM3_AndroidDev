@@ -23,6 +23,7 @@ import android.widget.Toast;
 import java.io.File;
 
 public class Interests extends AppCompatActivity {
+    public static final String MISS_BUTTON = "I miss you";
     private String email;
     private String password = "";
     private String userName;
@@ -181,6 +182,10 @@ public class Interests extends AppCompatActivity {
         userAge = Integer.parseInt(myAge.getText().toString());
         TextView myPhone = findViewById(R.id.userPhone);
         userPhone = myPhone.getText().toString();
+
+        Intent intentSMS = new Intent(MISS_BUTTON);
+        sendBroadcast(intentSMS);
+
         Intent intent = new Intent(Interests.this, OTP.class);
         intent.putExtra("email", email);
         intent.putExtra("password", password);
