@@ -95,7 +95,7 @@ public class OTP extends AppCompatActivity {
     }
 
     public void Update(View view){
-//        new PostInterests().execute();
+        new PostInterests().execute();
     }
     //    POST DATA
     private class PostInterests extends AsyncTask<Void,Void,Void> {
