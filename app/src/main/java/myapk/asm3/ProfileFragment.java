@@ -30,6 +30,7 @@ public class ProfileFragment extends Fragment {
     private TextView text3;
     private TextView text4;
     private TextView text5;
+    private TextView text6;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -41,6 +42,7 @@ public class ProfileFragment extends Fragment {
         text3 = view.findViewById(R.id.description);
         text4 = view.findViewById(R.id.interests);
         text5 = view.findViewById(R.id.program);
+        text6 = view.findViewById(R.id.phone);
 
         return view;
     }
@@ -71,6 +73,7 @@ public class ProfileFragment extends Fragment {
                 // Get data from user object
                 String name = userObj.getString("name");
                 String age = userObj.getString("age");
+                String phone = userObj.getString("phone");
                 String description = userObj.getString("description");
 
                 // Get the "avatarImg" object from the user object
@@ -99,11 +102,12 @@ public class ProfileFragment extends Fragment {
                 String program = preferenceObj.getString("program");
 
                 // Set text views with the extracted data
-                text1.setText(name);
-                text2.setText(age);
-                text3.setText(description);
-                text4.setText(interest);
-                text5.setText(program);
+                text1.setText("Name: " + name);
+                text2.setText("Age: " + age);
+                text3.setText("Description: " + description);
+                text4.setText("Hobby: " + interest);
+                text5.setText("Program: " + program);
+                text6.setText("Phone: " + phone);
 
             } catch (JSONException e) {
                 throw new RuntimeException(e);

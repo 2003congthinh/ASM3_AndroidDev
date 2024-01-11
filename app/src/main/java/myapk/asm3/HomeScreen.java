@@ -37,22 +37,14 @@ public class HomeScreen extends AppCompatActivity {
     private BottomNavigationView bottomNav;
     private FrameLayout menu;
 
-    // Get cur loc
-    Location cur_loc;
-    protected FusedLocationProviderClient fusedLocationProviderClient;
-    protected LocationRequest mLocationRequest;
-    private static final long UPDATE_INTERVAL = 20*1000 ;
-    private static final long FASTEST_INTERVAL = 10*1000 ;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
 
-        // Get cur loc
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        startLocationUpdate();
-
+        // Start the LocationUpdateService
+        Intent serviceIntent = new Intent(this, LocationUpdateService.class);
+        startService(serviceIntent);
 
         // Bottom nav
         bottomNav = findViewById(R.id.bottomNav);
@@ -88,24 +80,5 @@ public class HomeScreen extends AppCompatActivity {
             transaction.replace(R.id.fragment, fragment);
         }
         transaction.commit();
-    }
-
-    // Get cur loc
-    @SuppressLint({"MissingPermission", "RestrictedApi"})
-    private void startLocationUpdate(){
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(UPDATE_INTERVAL);
-        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
-        fusedLocationProviderClient.requestLocationUpdates(mLocationRequest, new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult){
-                super.onLocationResult(locationResult);
-                cur_loc = locationResult.getLastLocation();
-
-                Log.d("Current location: ", "Lat: " + cur_loc.getLatitude() + ", " + "Long: " + cur_loc.getLongitude());
-                Toast.makeText(HomeScreen.this, "Current location: " + "Lat: " + cur_loc.getLatitude() + ", " + "Long: " + cur_loc.getLongitude(), Toast.LENGTH_SHORT).show();
-            }
-        }, null);
     }
 }
