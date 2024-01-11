@@ -43,7 +43,7 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(R.layout.home_screen);
 
         // Start the LocationUpdateService
-        Intent serviceIntent = new Intent(this, LocationUpdateService.class);
+        Intent serviceIntent = new Intent(this, MyService.class);
         startService(serviceIntent);
 
         // Bottom nav
@@ -68,6 +68,13 @@ public class HomeScreen extends AppCompatActivity {
         });
 
         switchFragment( new HomeFragment(), true);
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        Intent intent = new Intent(HomeScreen.this, MyService.class);
+        stopService(intent);
     }
 
     // Bottom nav handler
