@@ -21,8 +21,8 @@ public class MyService extends Service {
     protected FusedLocationProviderClient fusedLocationProviderClient;
     protected LocationRequest mLocationRequest;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-    private static final long UPDATE_INTERVAL = 20*1000 ;
-    private static final long FASTEST_INTERVAL = 10*1000 ;
+    private static final long UPDATE_INTERVAL = 20*10000 ;
+    private static final long FASTEST_INTERVAL = 10*10000 ;
     public MyService() {
     }
 

@@ -25,10 +25,12 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Random;
 
 public class OTP extends AppCompatActivity {
     // SMS
+    private String otpString;
     private EditText otp1;
     protected MyReceiver myReceiver;
     protected IntentFilter intentFilter;
@@ -84,7 +86,7 @@ public class OTP extends AppCompatActivity {
         int otpNumber = new Random().nextInt((999 - 101) + 1) + 101;
 
         // Convert the generated number to a string
-        String otpString = String.valueOf(otpNumber);
+        otpString = String.valueOf(otpNumber);
 
         // Concatenate the generated OTP with a message
         String otpMessage = "Your OTP is: " + otpString;
@@ -95,7 +97,13 @@ public class OTP extends AppCompatActivity {
     }
 
     public void Update(View view){
-        new PostInterests().execute();
+        String code = otp1.getText().toString();
+        if(Objects.equals(otpString, code)){
+            new PostInterests().execute();
+        } else {
+            Toast.makeText(OTP.this, "Wrong OTP", Toast.LENGTH_SHORT).show();
+        }
+
     }
     //    POST DATA
     private class PostInterests extends AsyncTask<Void,Void,Void> {

@@ -68,7 +68,9 @@ public class ProfileFragment extends Fragment {
 
                 // Extract user and preference information
                 JSONObject userObj = responseObj.getJSONObject("user");
+                Log.d("User: ", String.valueOf(userObj));
                 JSONObject preferenceObj = responseObj.getJSONObject("preference");
+                Log.d("Preference: ", String.valueOf(preferenceObj));
 
                 // Get data from user object
                 String name = userObj.getString("name");
