@@ -54,15 +54,6 @@ public class MyService extends Service {
             public void onLocationResult(LocationResult locationResult) {
                 super.onLocationResult(locationResult);
                 cur_loc = locationResult.getLastLocation();
-<<<<<<< HEAD
-                if(locList.size() > 2){
-                    locList.remove(0);
-                }
-                boolean condition = (locList.get(0).getLatitude() - cur_loc.getLatitude() < 0.1 ) && (locList.get(0).getLongitude() - cur_loc.getLongitude() < 0.1);
-                if (condition) {
-                    new PostLocation().execute();
-                    Toast.makeText(MyService.this, "Location: " + cur_loc.getLongitude() + ", " + cur_loc.getLatitude(), Toast.LENGTH_SHORT).show();
-=======
 
                 if (cur_loc != null) {
                     if (locList.size() > 2) {
@@ -78,7 +69,6 @@ public class MyService extends Service {
 
                     // Add the current location to the list
                     locList.add(cur_loc);
->>>>>>> 210b00a848f48abdbda98c2a3f0cb0f60b44e542
                 }
             }
         }, null);
