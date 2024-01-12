@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -33,6 +34,8 @@ import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import java.util.ArrayList;
 
 public class HomeScreen extends AppCompatActivity {
+    protected MyReceiver myReceiver;
+    protected IntentFilter intentFilter;
     // Bottom navigation
     private BottomNavigationView bottomNav;
     private FrameLayout menu;
@@ -67,8 +70,17 @@ public class HomeScreen extends AppCompatActivity {
                 return true;
             }
         });
-
+        registerService();
         switchFragment( new HomeFragment(), true);
+    }
+
+    private void registerService(){
+        myReceiver = new MyReceiver();
+        intentFilter = new IntentFilter();
+
+        intentFilter.addAction("myapk.asm3");
+
+        registerReceiver(myReceiver, intentFilter);
     }
 
     @Override

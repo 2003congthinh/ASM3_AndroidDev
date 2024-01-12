@@ -334,4 +334,96 @@ public class HttpHandler {
         return status;
     }
 
+    public static String getMates(String email) {
+        StringBuilder builder = new StringBuilder();
+        try {
+            // Step 1 - prepare the connection
+            URL url = new URL(URL + "/findMates");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
+
+            // Step 2 - prepare the JSON object
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("email", email);
+
+            // Step 3 - Writing data to the web service
+            try (DataOutputStream os = new DataOutputStream(conn.getOutputStream())) {
+                os.writeBytes(jsonObject.toString());
+                os.flush();
+            }
+
+            // Step 4 - Read the response code and message
+            int responseCode = conn.getResponseCode();
+            String responseMessage = conn.getResponseMessage();
+
+            // Handle the response appropriately
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                // Successfully connected
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line);
+                }
+            } else {
+                // Handle other response codes
+                builder.append("Error - ").append(responseCode).append(": ").append(responseMessage);
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            builder.append("Error - MalformedURLException: ").append(e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+            builder.append("Error - IOException: ").append(e.getMessage());
+        } catch (JSONException e) {
+            e.printStackTrace();
+            builder.append("Error - JSONException: ").append(e.getMessage());
+        }
+
+        return builder.toString();
+    }
+
+    public static String setMatches(String email, String oemail){
+        String status = "";
+        try {
+            // Step 1 - prepare the connection
+            URL url = new URL(URL + "/matches");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
+            // Step 2 - prepare the JSON object
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("email", email);
+            jsonObject.put("oemail", oemail);
+            // Step 3 - Writing data to the web service
+            try (DataOutputStream os = new DataOutputStream(conn.getOutputStream())) {
+                os.writeBytes(jsonObject.toString());
+                os.flush();
+            }
+            // Step 4 - Read the response code and message
+            int responseCode = conn.getResponseCode();
+            String responseMessage = conn.getResponseMessage();
+            // Handle the response appropriately
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                // Successfully connected
+                loginEmail = email;
+                status = "Success: " + responseMessage;
+            } else {
+                // Handle other response codes
+                status = "Error - " + responseCode + ": " + responseMessage;
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            status = "Error - MalformedURLException: " + e.getMessage();
+        } catch (IOException e) {
+            e.printStackTrace();
+            status = "Error - IOException: " + e.getMessage();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            status = "Error - JSONException: " + e.getMessage();
+        }
+        return status;
+    }
 }
