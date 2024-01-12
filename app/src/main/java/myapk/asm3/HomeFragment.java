@@ -80,11 +80,6 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
-                // Ask for more data here
-//                al.add("XML ".concat(String.valueOf(i)));
-//                arrayAdapter.notifyDataSetChanged();
-//                Log.d("LIST", "notified");
-//                i++;
                 Toast.makeText(requireContext(), "Out of image", Toast.LENGTH_SHORT).show();
             }
 
@@ -113,16 +108,5 @@ public class HomeFragment extends Fragment {
     }
 
 
-//    @OnClick(R.id.right)
-//    public void right() {
-//        /**
-//         * Trigger the right event manually.
-//         */
-//        flingContainer.getTopCardListener().selectRight();
-//    }
-//
-//    @OnClick(R.id.left)
-//    public void left() {
-//        flingContainer.getTopCardListener().selectLeft();
-//    }
+
 }

@@ -21,9 +21,9 @@ public class MyService extends Service {
     private static String userEmail = HttpHandler.loginEmail;
     private static String status ="";
     static Location cur_loc;
+    private ArrayList<Location> locList;
     protected FusedLocationProviderClient fusedLocationProviderClient;
     protected LocationRequest mLocationRequest;
-    private ArrayList<Location> locList = new ArrayList<>();;
     private static final long UPDATE_INTERVAL = 20*1000 ;
     private static final long FASTEST_INTERVAL = 10*1000 ;
     public MyService() {
