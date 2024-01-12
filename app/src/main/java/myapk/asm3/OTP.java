@@ -23,6 +23,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
@@ -31,7 +33,7 @@ import java.util.Random;
 public class OTP extends AppCompatActivity {
     // SMS
     private String otpString;
-    private EditText otp1;
+    private TextInputEditText otp1;
     protected MyReceiver myReceiver;
     protected IntentFilter intentFilter;
     public static final String OTP_CODE = "myapk.asm3.ACTION_OTP_CODE";
@@ -75,12 +77,18 @@ public class OTP extends AppCompatActivity {
         phone.setText(userPhone);
 
         generateAndSendOTP();
+        registerService();
+    }
 
-        // Register the broadcast receiver
+    private void registerService(){
         myReceiver = new MyReceiver();
-        intentFilter = new IntentFilter(OTP.OTP_CODE);
+        intentFilter = new IntentFilter();
+
+        intentFilter.addAction("myapk.asm3");
+
         registerReceiver(myReceiver, intentFilter);
     }
+
     private void generateAndSendOTP() {
         // Generate a random number between 101 and 999
         int otpNumber = new Random().nextInt((999 - 101) + 1) + 101;
@@ -94,6 +102,8 @@ public class OTP extends AppCompatActivity {
         // Send the OTP message via SMS
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(userPhone, null, otpMessage, null, null);
+
+//        registerService(otpString);
     }
 
     public void Update(View view){
