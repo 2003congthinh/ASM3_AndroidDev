@@ -46,6 +46,7 @@ public class HomeScreen extends AppCompatActivity {
         Intent serviceIntent = new Intent(this, MyService.class);
         startService(serviceIntent);
 
+
         // Bottom nav
         bottomNav = findViewById(R.id.bottomNav);
         menu = findViewById(R.id.fragment);

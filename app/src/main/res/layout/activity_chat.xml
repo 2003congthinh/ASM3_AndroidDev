@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Chat Window -->
+    <RelativeLayout
+        android:id="@+id/chatWindow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <!-- Chat Header -->
+        <LinearLayout
+            android:id="@+id/chatHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp">
+            <Button
+                android:id="@+id/backButton"
+                android:layout_gravity="center_vertical"
+                android:layout_width="50dp"
+                android:onClick="quitMessage"
+                android:layout_marginRight="20dp"
+                android:layout_height="30dp"
+                android:text="<" />
+
+            <!-- Contact's Profile Picture -->
+            <ImageView
+                android:id="@+id/contactProfile"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src=""
+                android:contentDescription="profile" />
+
+            <TextView
+                android:id="@+id/contactName"
+                android:layout_gravity="center_vertical"
+                android:text="Hoang"
+                android:textSize="22dp"
+                android:layout_marginStart="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!-- Other Chat Header Elements -->
+
+        </LinearLayout>
+
+        <!-- Message Display Area -->
+
+        <!--        &lt;!&ndash; Message Input Field &ndash;&gt;-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/messageListView"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_below="@id/chatHeader"
+            android:layout_marginTop="40dp">
+
+<!--            <ListView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:divider="@android:color/transparent"-->
+<!--                android:dividerHeight="8dp"-->
+<!--                android:padding="16dp" />-->
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <EditText
+            android:layout_marginTop="40dp"
+            android:id="@+id/messageInputField"
+            android:layout_width="350dp"
+            android:layout_centerInParent="true"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/messageListView"
+            android:hint="Chat..."/>
+
+<!--        &lt;!&ndash; Send Button &ndash;&gt;-->
+        <Button
+            android:id="@+id/sendButton"
+            android:onClick="sendMessage"
+            android:layout_marginTop="20dp"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/messageInputField"
+            android:text="Send" />
+
+        <!-- Other Chat Window Elements -->
+
+    </RelativeLayout>
+
+    <!-- Additional Features, Settings, and Footer Section -->
+
+</RelativeLayout>

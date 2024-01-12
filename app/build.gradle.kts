@@ -36,6 +36,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.google.android.gms:play-services-auth-api-phone:18.0.1")
+    implementation("androidx.recyclerview:recyclerview:1.2.1");
 
     // Gmail authentication
     implementation("com.google.android.gms:play-services-auth:20.7.0")
@@ -49,5 +50,11 @@ dependencies {
     implementation("com.google.android.gms:play-services-maps:18.2.0")
     implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation ("com.google.maps.android:android-maps-utils:2.2.1")
+
+    implementation("io.socket:socket.io-client:2.1.0") {
+        // excluding org.json which is provided by Android
+        exclude(group = "org.json", module = "json")
+    }
+
 
 }

@@ -14,15 +14,18 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 
+import java.util.ArrayList;
+
 public class MyService extends Service {
     private static String userEmail = HttpHandler.loginEmail;
     private static String status ="";
     static Location cur_loc;
+    private ArrayList<Location> locList;
     protected FusedLocationProviderClient fusedLocationProviderClient;
     protected LocationRequest mLocationRequest;
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
-    private static final long UPDATE_INTERVAL = 20*10000 ;
-    private static final long FASTEST_INTERVAL = 10*10000 ;
+    private static final long UPDATE_INTERVAL = 20*10000;
+    private static final long FASTEST_INTERVAL = 10*10000;
     public MyService() {
     }
 
@@ -50,8 +53,11 @@ public class MyService extends Service {
             public void onLocationResult(LocationResult locationResult) {
                 super.onLocationResult(locationResult);
                 cur_loc = locationResult.getLastLocation();
-
-                if (cur_loc != null) {
+                if(locList.size() > 2){
+                    locList.remove(0);
+                }
+                boolean condition = (locList.get(0).getLatitude() - cur_loc.getLatitude() < 0.1 ) && (locList.get(0).getLongitude() - cur_loc.getLongitude() < 0.1);
+                if (condition) {
                     new PostLocation().execute();
                     Toast.makeText(MyService.this, "Location: " + cur_loc.getLongitude() + ", " + cur_loc.getLatitude(), Toast.LENGTH_SHORT).show();
                 }
