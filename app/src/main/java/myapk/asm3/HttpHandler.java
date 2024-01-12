@@ -284,4 +284,54 @@ public class HttpHandler {
         return status;
     }
 
+    public static String updateProfile(String email, String phone, String name, String description, String gender, String program, String interest, int age, String partner){
+        String status = "";
+        try {
+            // Step 1 - prepare the connection
+            URL url = new URL(URL + "/updateUserProfile");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/json");
+            conn.setRequestProperty("Accept", "application/json");
+            // Step 2 - prepare the JSON object
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("email", email);
+            jsonObject.put("phone", phone);
+            jsonObject.put("name", name);
+            jsonObject.put("description", description);
+            jsonObject.put("gender", gender);
+            jsonObject.put("program", program);
+            jsonObject.put("interest", interest);
+            jsonObject.put("age", age);
+            jsonObject.put("partner", partner);
+            // Step 3 - Writing data to the web service
+            try (DataOutputStream os = new DataOutputStream(conn.getOutputStream())) {
+                os.writeBytes(jsonObject.toString());
+                os.flush();
+            }
+            // Step 4 - Read the response code and message
+            int responseCode = conn.getResponseCode();
+            String responseMessage = conn.getResponseMessage();
+            // Handle the response appropriately
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                // Successfully connected
+                loginEmail = email;
+                status = "Success: " + responseMessage;
+            } else {
+                // Handle other response codes
+                status = "Error - " + responseCode + ": " + responseMessage;
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            status = "Error - MalformedURLException: " + e.getMessage();
+        } catch (IOException e) {
+            e.printStackTrace();
+            status = "Error - IOException: " + e.getMessage();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            status = "Error - JSONException: " + e.getMessage();
+        }
+        return status;
+    }
+
 }

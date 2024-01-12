@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UpdatePage">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tell us all about you."
+            android:textSize="30dp"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What is your name."
+            android:textSize="20dp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/userName"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:inputType="text"
+            android:hint="Your name?"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What is your phone number."
+            android:textSize="20dp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/userPhone"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:inputType="number"
+            android:hint="Your number?"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What is your age."
+            android:textSize="20dp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/userAge"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:inputType="number"
+            android:hint="Your age?"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please tell us a short description of yourself."
+            android:textSize="20dp"
+            android:layout_margin="10dp"/>
+
+        <EditText
+            android:id="@+id/userDescription"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:inputType="text"
+            android:hint="Your information?"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Let us know what is your interest"
+            android:textSize="20dp"
+            android:layout_margin="10dp"/>
+
+        <Spinner
+            android:id="@+id/interest"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Let us know which programs you entered"
+            android:textSize="20dp"
+            android:layout_margin="10dp"/>
+
+        <Spinner
+            android:id="@+id/program"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Let us know what is your gender"
+            android:textSize="20dp"
+            android:layout_margin="10dp"/>
+
+        <Spinner
+            android:id="@+id/sex"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Let us know who you wanna meet"
+            android:textSize="20dp"
+            android:layout_margin="10dp"/>
+
+        <Spinner
+            android:id="@+id/interested_partner"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"/>
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SUBMIT"
+            android:layout_gravity="center"
+            android:onClick="Submit"/>
+
+    </LinearLayout>
+</ScrollView>
