@@ -45,14 +45,14 @@
             android:name=".MyService"
             android:enabled="true"
             android:exported="true" />
-        <service
-            android:name=".LocationUpdateService"
-            android:exported="false" />
+
 
         <receiver
             android:name=".MyReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:permission="TODO"
+            tools:ignore="ExportedReceiver">
             <intent-filter>
                 <action android:name="myapk.asm3.ACTION_OTP_CODE" />
             </intent-filter>
