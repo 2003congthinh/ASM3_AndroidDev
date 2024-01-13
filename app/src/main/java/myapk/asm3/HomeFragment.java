@@ -30,6 +30,8 @@ import java.util.ArrayList;
 
 
 public class HomeFragment extends Fragment {
+    private String imgName;
+    private String imgEmail;
     private String jsonString = "";
     private String email = HttpHandler.loginEmail;
     // Swipe functions
@@ -80,6 +82,8 @@ public class HomeFragment extends Fragment {
             public void removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!");
+                imgEmail = al5.get(0);
+                imgName = al2.get(0);
                 al.remove(0);
                 al2.remove(0);
                 al3.remove(0);
@@ -101,7 +105,7 @@ public class HomeFragment extends Fragment {
             public void onRightCardExit(Object dataObject) {
 //                String name = al2.get(itemPosition);
 //                String oemail = al5.get(itemPosition);
-                Toast.makeText(requireContext(), "Right!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Name: " + imgName + ", " + "Email: " + imgEmail, Toast.LENGTH_SHORT).show();
             }
 
             @Override
