@@ -3,6 +3,7 @@ package myapk.asm3;
 // Current location functions are from Week 5
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -34,8 +36,6 @@ import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 import java.util.ArrayList;
 
 public class HomeScreen extends AppCompatActivity {
-    protected MyReceiver myReceiver;
-    protected IntentFilter intentFilter;
     // Bottom navigation
     private BottomNavigationView bottomNav;
     private FrameLayout menu;
@@ -70,24 +70,8 @@ public class HomeScreen extends AppCompatActivity {
                 return true;
             }
         });
-//        registerService();
+
         switchFragment( new HomeFragment(), true);
-    }
-
-//    private void registerService(){
-//        myReceiver = new MyReceiver();
-//        intentFilter = new IntentFilter();
-//
-//        intentFilter.addAction("myapk.asm3");
-//
-//        registerReceiver(myReceiver, intentFilter);
-//    }
-
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        Intent intent = new Intent(HomeScreen.this, MyService.class);
-        stopService(intent);
     }
 
     // Bottom nav handler

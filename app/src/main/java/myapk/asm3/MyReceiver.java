@@ -4,18 +4,28 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
-public class MyReceiver extends BroadcastReceiver {
+import java.util.Random;
 
+public class MyReceiver extends BroadcastReceiver {
+    private String otpMessage = OTP.otpMessage;
+    private String userPhone = OTP.userPhone;
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals("myapk.asm3")){
-            Toast.makeText(context, "123", Toast.LENGTH_SHORT).show();
+        if (intent.getAction().equals("myapk.asm3.ACTION_OTP_CODE")){
+            generateAndSendOTP();
             Log.d("OTP: ", "123");
         }
-        throw new UnsupportedOperationException("Not yet implement");
+    }
+    private void generateAndSendOTP() {
+        // Send the OTP message via SMS
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(userPhone, null, otpMessage, null, null);
+
+//        registerService(otpString);
     }
 }
