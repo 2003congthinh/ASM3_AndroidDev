@@ -70,18 +70,18 @@ public class HomeScreen extends AppCompatActivity {
                 return true;
             }
         });
-        registerService();
+//        registerService();
         switchFragment( new HomeFragment(), true);
     }
 
-    private void registerService(){
-        myReceiver = new MyReceiver();
-        intentFilter = new IntentFilter();
-
-        intentFilter.addAction("myapk.asm3");
-
-        registerReceiver(myReceiver, intentFilter);
-    }
+//    private void registerService(){
+//        myReceiver = new MyReceiver();
+//        intentFilter = new IntentFilter();
+//
+//        intentFilter.addAction("myapk.asm3");
+//
+//        registerReceiver(myReceiver, intentFilter);
+//    }
 
     @Override
     protected void onDestroy(){

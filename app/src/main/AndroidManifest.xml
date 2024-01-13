@@ -46,7 +46,6 @@
             android:enabled="true"
             android:exported="true" />
 
-
         <receiver
             android:name=".MyReceiver"
             android:enabled="true"
