@@ -33,6 +33,7 @@ import java.util.Random;
 public class OTP extends AppCompatActivity {
     // SMS
     private String otpString;
+    public static String otpMessage;
     private TextInputEditText otp1;
     protected MyReceiver myReceiver;
     protected IntentFilter intentFilter;
@@ -73,23 +74,26 @@ public class OTP extends AppCompatActivity {
         selectedPrograms = getIntent().getStringExtra("program");
         imageUri = getIntent().getParcelableExtra("pict");
 
+        generateOTP();
+
         TextView phone = findViewById(R.id.phone);
         phone.setText(userPhone);
 
-        generateAndSendOTP();
         registerService();
+        Intent broadcastIntent = new Intent("myapk.asm3.ACTION_OTP_CODE");
+        sendBroadcast(broadcastIntent);
     }
 
     private void registerService(){
         myReceiver = new MyReceiver();
         intentFilter = new IntentFilter();
 
-        intentFilter.addAction("myapk.asm3");
+        intentFilter.addAction("myapk.asm3.ACTION_OTP_CODE");
 
         registerReceiver(myReceiver, intentFilter);
     }
 
-    private void generateAndSendOTP() {
+    private void generateOTP() {
         // Generate a random number between 101 and 999
         int otpNumber = new Random().nextInt((999 - 101) + 1) + 101;
 
@@ -97,13 +101,14 @@ public class OTP extends AppCompatActivity {
         otpString = String.valueOf(otpNumber);
 
         // Concatenate the generated OTP with a message
-        String otpMessage = "Your OTP is: " + otpString;
+        otpMessage = "Your OTP is: " + otpString;
+    }
 
-        // Send the OTP message via SMS
-        SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(userPhone, null, otpMessage, null, null);
-
-//        registerService(otpString);
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        Intent intent = new Intent(OTP.this, MyService.class);
+        stopService(intent);
     }
 
     public void Update(View view){
