@@ -30,6 +30,7 @@ import java.util.ArrayList;
 
 
 public class HomeFragment extends Fragment {
+    private static String status ="";
     private String imgName;
     private String imgEmail;
     private String jsonString = "";
@@ -103,8 +104,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onRightCardExit(Object dataObject) {
-//                String name = al2.get(itemPosition);
-//                String oemail = al5.get(itemPosition);
+                new PostMatches().execute();
                 Toast.makeText(requireContext(), "Name: " + imgName + ", " + "Email: " + imgEmail, Toast.LENGTH_SHORT).show();
             }
 
@@ -206,10 +206,21 @@ public class HomeFragment extends Fragment {
 
     }
 
+    private class PostMatches extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            status = HttpHandler.setMatches(email, imgEmail);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            // Handle post-execution tasks if needed
+            // You can access the status returned by the postLocation method here
+        }
+    }
+
     static void makeToast(Context ctx, String s){
         Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
     }
-
-
-
 }
