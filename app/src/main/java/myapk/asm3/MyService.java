@@ -245,6 +245,7 @@ public class MyService extends Service {
     private static class PostLocation extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
+            Log.d("About to update: ", cur_loc.getLongitude() + ", " + cur_loc.getLatitude());
             status = HttpHandler.postLocation(userEmail,cur_loc.getLatitude(),cur_loc.getLongitude());
             return null;
         }

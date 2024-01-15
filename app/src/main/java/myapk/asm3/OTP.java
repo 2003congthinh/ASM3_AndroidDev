@@ -80,9 +80,9 @@ public class OTP extends AppCompatActivity {
             TextView phone = findViewById(R.id.phone);
             phone.setText(userPhone);
 
-//        registerService();
-//        Intent broadcastIntent = new Intent("myapk.asm3.ACTION_OTP_CODE");
-//        sendBroadcast(broadcastIntent);
+        registerService();
+        Intent broadcastIntent = new Intent("myapk.asm3.ACTION_OTP_CODE");
+        sendBroadcast(broadcastIntent);
         }
     }
 

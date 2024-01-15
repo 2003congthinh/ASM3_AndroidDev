@@ -230,38 +230,6 @@ android:padding="16dp">
         android:backgroundTint="#FFFFFF"/> <!-- White background -->
 </LinearLayout>
 
-<!-- Profile Picture -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginBottom="16dp">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Choose your profile picture"
-        android:textSize="20sp"
-        android:textColor="#333333"/>
-
-    <ImageView
-        android:id="@+id/profilePict"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/insert_photo"/>
-</LinearLayout>
-
-<TextView
-    android:id="@+id/profileText"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:text="Insert image here"
-    android:textSize="20sp"
-    android:textColor="#333333"
-    android:layout_marginBottom="10dp"/>
-
 <!-- Submit Button -->
 <Button
     android:id="@+id/submit"
@@ -270,7 +238,7 @@ android:padding="16dp">
     android:text="SUBMIT"
     android:layout_gravity="center"
     android:textColor="#FFFFFF"
-android:backgroundTint="#B0B0B0"
-android:onClick="Submit"/>
+    android:backgroundTint="#B0B0B0"
+    android:onClick="Submit"/>
 </LinearLayout>
 </ScrollView>
