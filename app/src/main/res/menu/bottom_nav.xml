@@ -13,12 +13,12 @@
         android:layout_height="wrap_content"
         android:icon="@drawable/chat"
         android:title="Chat" />
-    <item
-        android:id="@+id/heat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:icon="@drawable/heat"
-        android:title="Heat" />
+<!--    <item-->
+<!--        android:id="@+id/heat"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:icon="@drawable/heat"-->
+<!--        android:title="Heat" />-->
     <item
         android:id="@+id/profile"
         android:layout_width="wrap_content"

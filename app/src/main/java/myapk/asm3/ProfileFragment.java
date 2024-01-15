@@ -22,6 +22,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
+import android.util.Base64;
+import android.widget.Toast;
 
 public class ProfileFragment extends Fragment {
     private String jsonString = "";
@@ -33,12 +35,16 @@ public class ProfileFragment extends Fragment {
     private TextView text4;
     private TextView text5;
     private TextView text6;
+    private TextView text7;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         Button updatePage = view.findViewById(R.id.updatePage);
+//        Toast.makeText(getContext(),"Create", Toast.LENGTH_SHORT).show();
+
         updatePage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +60,7 @@ public class ProfileFragment extends Fragment {
         text4 = view.findViewById(R.id.interests);
         text5 = view.findViewById(R.id.program);
         text6 = view.findViewById(R.id.phone);
+        text7 = view.findViewById(R.id.email);
 
         return view;
     }
@@ -61,7 +68,20 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
-        new FetchProfile().execute();
+//        new FetchProfile().execute();
+//         Toast.makeText(getContext(),"Resume", Toast.LENGTH_SHORT).show();
+        // Set the ImageView with the decoded image
+        Users curU = HomeScreen.curUser;
+        if(curU != null) {
+            imageView.setImageBitmap(curU.getImage());
+            text1.setText("Name: " + curU.getName());
+            text2.setText("Age: " + curU.getAge());
+            text3.setText("Description: " + curU.getDescription());
+            text4.setText("Hobby: " + curU.getInterest());
+            text5.setText("Program: " + curU.getProgram());
+            text6.setText("Phone: " + curU.getPhone());
+            text7.setText("Email: " + curU.getEmail());
+        }
     }
 
     private class FetchProfile extends AsyncTask<Void, Void, Void> {
@@ -103,6 +123,17 @@ public class ProfileFragment extends Fragment {
                 for (int i = 0; i < dataArray.length(); i++) {
                     imageBytes[i] = (byte) dataArray.getInt(i);
                 }
+//                StringBuilder base64StringBuilder = new StringBuilder();
+//
+//                // Concatenate Base64 strings from the JSONArray
+//                for (int j = 0; j < dataArray.length(); j++) {
+//                    base64StringBuilder.append(dataArray.getString(j));
+//                }
+//
+//                // Convert the Base64 string to a byte array
+//                byte[] imageBytes = Base64.decode(base64StringBuilder.toString(), Base64.DEFAULT);
+
+
 
                 // Decode the byte array into a Bitmap
                 Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);

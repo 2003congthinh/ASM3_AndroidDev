@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
@@ -37,42 +39,31 @@ public class HomeFragment extends Fragment {
     private String email = HttpHandler.loginEmail;
     // Swipe functions
     private CustomImageAdapter imageAdapter;
-    private ArrayList<Bitmap> al;
-    private ArrayList<String> al2;
-    private ArrayList<String> al3;
-    private ArrayList<String> al4;
-    private ArrayList<String> al5;
+    private ArrayList<Bitmap> aImage;
+    private ArrayList<String> aName;
+    private ArrayList<String> aDescription;
+    private ArrayList<String> aAge;
+    private ArrayList<String> aEmail;
     private ArrayAdapter<String> arrayAdapter;
     private int i;
+    View view;
     SwipeFlingAdapterView flingContainer;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-
+        view = inflater.inflate(R.layout.fragment_home, container, false);
+//        Toast.makeText(getContext(),"Create", Toast.LENGTH_SHORT).show();
         // Swipe function
-//        al = new ArrayList<>();
-//        al.add("php");
-//        al.add("c");
-//        al.add("python");
-//        al.add("java");
-//        al.add("html");
-//        al.add("c++");
-//        al.add("css");
-//        al.add("javascript");
-        al = new ArrayList<>();
-        al2 = new ArrayList<>();
-        al3 = new ArrayList<>();
-        al4 = new ArrayList<>();
-        al5 = new ArrayList<>();
-//        for (int j = 1; j <= 10; j++) {
-//            al.add("flower" + j);
-//        }
-//
-////        arrayAdapter = new ArrayAdapter<>(this, R.layout.item, R.id.helloText, al );
-        imageAdapter = new CustomImageAdapter(requireContext(), R.layout.item, al, al2, al3, al4, al5);
+        aImage = new ArrayList<>();
+        aName = new ArrayList<>();
+
+        aDescription = new ArrayList<>();
+        aAge = new ArrayList<>();
+        aEmail = new ArrayList<>();
+
+        imageAdapter = new CustomImageAdapter(requireContext(), R.layout.item, aImage, aName, aAge, aDescription, aEmail);
 
         flingContainer = view.findViewById(R.id.frame);
 //        flingContainer.setAdapter(arrayAdapter);
@@ -83,14 +74,14 @@ public class HomeFragment extends Fragment {
             public void removeFirstObjectInAdapter() {
                 // this is the simplest way to delete an object from the Adapter (/AdapterView)
                 Log.d("LIST", "removed object!");
-                imgEmail = al5.get(0);
-                imgName = al2.get(0);
-                al.remove(0);
-                al2.remove(0);
-                al3.remove(0);
-                al4.remove(0);
-                al5.remove(0);
-//                arrayAdapter.notifyDataSetChanged();
+                imgEmail = aEmail.get(0);
+                imgName = aName.get(0);
+                aImage.remove(0);
+                aName.remove(0);
+                aAge.remove(0);
+                aEmail.remove(0);
+                aDescription.remove(0);
+
                 imageAdapter.notifyDataSetChanged();
             }
 
@@ -99,18 +90,19 @@ public class HomeFragment extends Fragment {
                 //Do something on the left!
                 //You also have access to the original object.
                 //If you want to use it just cast it (String) dataObject
-                Toast.makeText(requireContext(), "Left!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(requireContext(), "Left!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
                 new PostMatches().execute();
-                Toast.makeText(requireContext(), "Name: " + imgName + ", " + "Email: " + imgEmail, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(requireContext(), "Name: " + imgName + ", " + "Email: " + imgEmail, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
-                Toast.makeText(requireContext(), "Out of image", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(requireContext(), "Out of image", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -126,8 +118,8 @@ public class HomeFragment extends Fragment {
         flingContainer.setOnItemClickListener(new SwipeFlingAdapterView.OnItemClickListener() {
             @Override
             public void onItemClicked(int itemPosition, Object dataObject) {
-                String name = al2.get(itemPosition);
-                String oemail = al5.get(itemPosition);
+                String name = aName.get(itemPosition);
+                String oemail = aEmail.get(itemPosition);
                 makeToast(requireContext(), "Clicked! Name: " + name + ", " + "Email: " + oemail);
             }
         });
@@ -139,7 +131,25 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
-        new HomeFragment.GetMates().execute();
+//        new HomeFragment.GetMates().execute();
+//        Toast.makeText(getContext(),"Resume", Toast.LENGTH_SHORT).show();
+        // Set up the adapter with the updated data
+        aImage = HomeScreen.aImage;
+        aName = HomeScreen.aName;
+        aAge = HomeScreen.aAge;
+        aEmail = HomeScreen.aEmail;
+        aDescription = HomeScreen.aDescription;
+        if(aEmail.isEmpty() != true) {
+            flingContainer.setVisibility(View.VISIBLE);
+            imageAdapter = new CustomImageAdapter(requireContext(), R.layout.item, aImage, aName, aAge, aDescription, aEmail);
+            flingContainer.setAdapter(imageAdapter);
+            // Notify the adapter about the changes
+            imageAdapter.notifyDataSetChanged();
+        }else{
+            flingContainer.setVisibility(View.GONE);
+            TextView textView = view.findViewById(R.id.homeNoti);
+            textView.setVisibility(View.VISIBLE);
+        }
     }
 
     private class GetMates extends AsyncTask<Void, Void, Void> {
@@ -147,28 +157,29 @@ public class HomeFragment extends Fragment {
         protected Void doInBackground(Void... voids) {
             jsonString = HttpHandler.getMates(email);
             Log.d("Profile: ", jsonString);
+            Log.d("Profile: ", email);
             return null;
         }
 
         protected void onPostExecute(Void avoid) {
             try {
-                al.clear();
-                al2.clear();
-                al3.clear();
-                al4.clear();
-                al5.clear();
+                aImage.clear();
+                aName.clear();
+                aAge.clear();
+                aDescription.clear();
+                aEmail.clear();
                 // Parse the response as a JSON object
                 JSONArray jsonArray = new JSONArray(jsonString);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     String name = jsonObject.getString("name");
-                    al2.add(name);
+                    aName.add(name);
                     String age = jsonObject.getString("age");
-                    al3.add(age);
+                    aAge.add(age);
                     String description = jsonObject.getString("description");
-                    al4.add(description);
+                    aDescription.add(description);
                     String oemail = jsonObject.getString("email");
-                    al5.add(oemail);
+                    aEmail.add(oemail);
                     Log.d("Mates: ", String.valueOf(jsonObject));
                     Log.d("Mates_name: ", name);
                     // Get the "avatarImg" object from the user object
@@ -179,7 +190,7 @@ public class HomeFragment extends Fragment {
 
                     // Get the raw byte data array
                     JSONArray dataArray = dataObj.getJSONArray("data");
-                    Log.d("Mates_pict: ", String.valueOf(dataArray));
+//                    Log.d("Mates_pict: ", String.valueOf(dataArray));
                     byte[] imageBytes = new byte[dataArray.length()];
 
                     // Convert JSONArray to a byte array
@@ -187,12 +198,24 @@ public class HomeFragment extends Fragment {
                         imageBytes[j] = (byte) dataArray.getInt(j);
                     }
 
+//                    // Create a StringBuilder to concatenate the Base64 strings
+//                    StringBuilder base64StringBuilder = new StringBuilder();
+//
+//                    // Concatenate Base64 strings from the JSONArray
+//                    for (int j = 0; j < dataArray.length(); j++) {
+//                        base64StringBuilder.append(dataArray.getString(j));
+//                    }
+//
+//                    // Convert the Base64 string to a byte array
+//                    byte[] imageBytes = Base64.decode(base64StringBuilder.toString(), Base64.DEFAULT);
+
+
                     // Decode the byte array into a Bitmap
                     Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-                    al.add(bitmap);
+                    aImage.add(bitmap);
                 }
                 // Set up the adapter with the updated data
-                imageAdapter = new CustomImageAdapter(requireContext(), R.layout.item, al, al2, al3, al4, al5);
+                imageAdapter = new CustomImageAdapter(requireContext(), R.layout.item, aImage, aName, aAge, aDescription, aEmail);
                 flingContainer.setAdapter(imageAdapter);
 
                 // Notify the adapter about the changes

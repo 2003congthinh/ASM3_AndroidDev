@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -131,6 +132,14 @@ public class UpdatePage extends AppCompatActivity {
             }
         });
 
+        Button back = (Button) findViewById(R.id.quitUpdate);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     public void Submit(View view){
@@ -163,6 +172,7 @@ public class UpdatePage extends AppCompatActivity {
                 Toast.makeText(UpdatePage.this, status, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(UpdatePage.this, HomeScreen.class);
                 startActivity(intent);
+                finish();
             } else {
                 Toast.makeText(UpdatePage.this, "Something's wrong", Toast.LENGTH_SHORT).show();
             }

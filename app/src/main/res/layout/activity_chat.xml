@@ -1,94 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    tools:context=".ChatActivity">
 
-    <!-- Chat Window -->
-    <RelativeLayout
-        android:id="@+id/chatWindow"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-        <!-- Chat Header -->
-        <LinearLayout
-            android:id="@+id/chatHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp">
-            <Button
-                android:id="@+id/backButton"
-                android:layout_gravity="center_vertical"
-                android:layout_width="50dp"
-                android:onClick="quitMessage"
-                android:layout_marginRight="20dp"
-                android:layout_height="30dp"
-                android:text="Back" />
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_marginBottom="20dp">
 
-            <!-- Contact's Profile Picture -->
-            <ImageView
-                android:id="@+id/contactProfile"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:contentDescription="profile" />
-            <!--                android:src=""-->
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Back"
+    android:id="@+id/quitMessage"
+    android:textColor="#FFFFFF"
+    android:background="#64B5F6"
+    android:layout_marginEnd="10dp"/>
 
-            <TextView
-                android:id="@+id/contactName"
-                android:layout_gravity="center_vertical"
-                android:text="Hoang"
-                android:textSize="22dp"
-                android:layout_marginStart="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Hoang"
+    android:id="@+id/sender"
+    android:textSize="22dp"
+    android:textColor="#333333"
+android:layout_marginStart="20dp"/>
+</LinearLayout>
 
-            <!-- Other Chat Header Elements -->
+<ListView
+android:layout_width="match_parent"
+android:layout_height="550dp"
+android:dividerHeight="16dp"
+android:divider="@android:color/transparent"
+android:id="@+id/list_of_messages"
+android:layout_marginBottom="16dp"
+android:background="#ECEFF1"
+    />
 
-        </LinearLayout>
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="50dp"
+android:orientation="horizontal"
+android:background="#ECEFF1"
+    >
 
-        <!-- Message Display Area -->
+<EditText
+android:layout_width="0dp"
+android:layout_weight="1"
+android:layout_height="wrap_content"
+android:hint="Type a message"
+android:id="@+id/inputMessage"
+android:backgroundTint="#FFFFFF"
+    android:padding="10dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginStart="5dp"
+    />
 
-        <!--        &lt;!&ndash; Message Input Field &ndash;&gt;-->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/messageListView"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_below="@id/chatHeader"
-            android:layout_marginTop="40dp">
-
-<!--            <ListView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:divider="@android:color/transparent"-->
-<!--                android:dividerHeight="8dp"-->
-<!--                android:padding="16dp" />-->
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <EditText
-            android:layout_marginTop="40dp"
-            android:id="@+id/messageInputField"
-            android:layout_width="350dp"
-            android:layout_centerInParent="true"
-            android:gravity="center_horizontal"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/messageListView"
-            android:hint="Chat..."/>
-
-<!--        &lt;!&ndash; Send Button &ndash;&gt;-->
-        <Button
-            android:id="@+id/sendButton"
-            android:onClick="sendMessage"
-            android:layout_marginTop="20dp"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/messageInputField"
-            android:text="Send" />
-
-        <!-- Other Chat Window Elements -->
-
-    </RelativeLayout>
-
-    <!-- Additional Features, Settings, and Footer Section -->
-
-</RelativeLayout>
+<Button
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:text="Send"
+android:id="@+id/sendMessage"
+android:textColor="#FFFFFF"
+    android:background="#64B5F6"
+    android:padding="10dp"
+    android:layout_marginEnd="5dp"
+    android:layout_marginStart="5dp"
+    />
+    </LinearLayout>
+    </LinearLayout>

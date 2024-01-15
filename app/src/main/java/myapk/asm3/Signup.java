@@ -1,7 +1,5 @@
 package myapk.asm3;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -26,6 +24,7 @@ public class Signup extends AppCompatActivity {
         intent.putExtra("userEmail", userEmail);
         intent.putExtra("userPassword", userPassword);
         startActivity(intent);
+        finish();
     }
 
 }

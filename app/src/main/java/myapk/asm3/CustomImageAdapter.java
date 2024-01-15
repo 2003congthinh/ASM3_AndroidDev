@@ -18,15 +18,15 @@ public class CustomImageAdapter extends ArrayAdapter<Bitmap> {
     private List<String> names;
     private List<String> ages;
     private List<String> descriptions;
-    private List<String> oemail;
+    private List<String> emails;
 
-    public CustomImageAdapter(Context context, int resource, List<Bitmap> itemList, List<String> names, List<String> ages, List<String> descriptions, List<String> oemail) {
+    public CustomImageAdapter(Context context, int resource, List<Bitmap> itemList, List<String> names, List<String> ages, List<String> descriptions, List<String> emails) {
         super(context, resource, itemList);
         this.context = context;
         this.names = names;
         this.ages = ages;
         this.descriptions = descriptions;
-        this.oemail = oemail;
+        this.emails = emails;
     }
 
     @Override
@@ -43,11 +43,7 @@ public class CustomImageAdapter extends ArrayAdapter<Bitmap> {
         TextView ageTextView = v.findViewById(R.id.age);
         TextView descriptionTextView = v.findViewById(R.id.description);
 
-        // Load image using Glide
-//        int resourceId = context.getResources().getIdentifier(getItem(position), "drawable", context.getPackageName());
-//        Glide.with(context)
-//                .load(resourceId)
-//                .into(imageView);
+
         // Load Bitmap into ImageView
         Bitmap bitmap = getItem(position);
         String name = names.get(position);

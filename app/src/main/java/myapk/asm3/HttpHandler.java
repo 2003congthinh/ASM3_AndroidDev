@@ -1,23 +1,34 @@
 package myapk.asm3;
 
+import android.graphics.Bitmap;
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class HttpHandler {
     public static String loginEmail = "";
+//    public static ArrayList<Bitmap> aImage = new ArrayList<>();
+//    public static ArrayList<String> aName= new ArrayList<>();
+//    public static ArrayList<String> aAge= new ArrayList<>();
+//    public static ArrayList<String> aDescription= new ArrayList<>();
+//    public static ArrayList<String> aEmail= new ArrayList<>();
+//
+//    public static ArrayList<String> participants= new ArrayList<>();
+//    public static  Users curUser;
+
 //    static String URL = "http://192.168.55.107:8888";
 //    static String URL = "http://192.168.155.62:8888";
-    static String URL = "https://asm3android-a0efc67bf4a3.herokuapp.com";
+    static String URL = "https://fair-lime-crocodile.cyclic.app";
 
     private HttpURLConnection httpConn;
     private DataOutputStream request;
@@ -163,6 +174,7 @@ public class HttpHandler {
         return builder.toString();
     }
 
+
     public static String postLocation(String email, double latitude, double longitude){
         String status = "";
         try {
@@ -209,45 +221,10 @@ public class HttpHandler {
 
 
     public static String getMatches(String email){
-        String status = "";
+        StringBuilder builder = new StringBuilder();
         try {
             // Step 1 - prepare the connection
-            URL url = new URL(URL + "/findMatches" + "/" + email);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/json");
-            conn.setRequestProperty("Accept", "application/json");
-            // Step 3 - Writing data to the web service
-            try (DataOutputStream os = new DataOutputStream(conn.getOutputStream())) {
-//                os.writeBytes();
-                os.flush();
-            }
-            // Step 4 - Read the response code and message
-            int responseCode = conn.getResponseCode();
-            String responseMessage = conn.getResponseMessage();
-            // Handle the response appropriately
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                status = responseMessage;
-            } else {
-                // Handle other response codes
-                status = "Error - " + responseCode + ": " + responseMessage;
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            status = "Error - MalformedURLException: " + e.getMessage();
-        } catch (IOException e) {
-            e.printStackTrace();
-            status = "Error - IOException: " + e.getMessage();
-        };
-        return status;
-    }
-
-
-    public static String getMatch(String oemail, String email){
-        String status = "";
-        try {
-            // Step 1 - prepare the connection
-            URL url = new URL(URL + "/findMatch");
+            URL url = new URL(URL + "/lookMatches");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json");
@@ -255,7 +232,6 @@ public class HttpHandler {
             // Step 2 - prepare the JSON object
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("email", email);
-            jsonObject.put("oemail", oemail);
             // Step 3 - Writing data to the web service
             try (DataOutputStream os = new DataOutputStream(conn.getOutputStream())) {
                 os.writeBytes(jsonObject.toString());
@@ -264,24 +240,31 @@ public class HttpHandler {
             // Step 4 - Read the response code and message
             int responseCode = conn.getResponseCode();
             String responseMessage = conn.getResponseMessage();
+
             // Handle the response appropriately
             if (responseCode == HttpURLConnection.HTTP_OK) {
-                status = responseMessage;
+                // Successfully connected
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line);
+                }
             } else {
                 // Handle other response codes
-                status = "Error - " + responseCode + ": " + responseMessage;
+                builder.append("Error - ").append(responseCode).append(": ").append(responseMessage);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
-            status = "Error - MalformedURLException: " + e.getMessage();
+            builder.append("Error - MalformedURLException: ").append(e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
-            status = "Error - IOException: " + e.getMessage();
-        }catch (JSONException e) {
+            builder.append("Error - IOException: ").append(e.getMessage());
+        } catch (JSONException e) {
             e.printStackTrace();
-            status = "Error - JSONException: " + e.getMessage();
-        };
-        return status;
+            builder.append("Error - JSONException: ").append(e.getMessage());
+        }
+
+        return builder.toString();
     }
 
     public static String updateProfile(String email, String phone, String name, String description, String gender, String program, String interest, int age, String partner){
@@ -358,9 +341,9 @@ public class HttpHandler {
             int responseCode = conn.getResponseCode();
             String responseMessage = conn.getResponseMessage();
 
-            // Handle the response appropriately
+//             Handle the response appropriately
             if (responseCode == HttpURLConnection.HTTP_OK) {
-                // Successfully connected
+//                 Successfully connected
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -380,7 +363,6 @@ public class HttpHandler {
             e.printStackTrace();
             builder.append("Error - JSONException: ").append(e.getMessage());
         }
-
         return builder.toString();
     }
 

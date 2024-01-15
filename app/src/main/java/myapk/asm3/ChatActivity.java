@@ -1,171 +1,153 @@
 package myapk.asm3;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.TextUtils;
+import android.text.format.DateFormat;
+import android.util.Base64;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.firebase.ui.database.FirebaseListAdapter;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collections;
 
-import io.socket.client.IO;
-import io.socket.client.Socket;
-import io.socket.emitter.Emitter;
+public class ChatActivity extends AppCompatActivity {
 
-public class ChatActivity extends AppCompatActivity implements MyMatchesRecyclerViewAdapter.ItemClickListener{
-
-    String data;
-    String email,id;
     String uEmail = HttpHandler.loginEmail;
-    String jsonString;
-    ArrayList<String> messages;
-    MyMatchesRecyclerViewAdapter adapter;
-    Socket socket;
+    String email;
+    FirebaseListAdapter<ChatMessage> adapter;
+    ArrayList<ChatMessage> messages;
+    DatabaseReference roomReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-        // Create account info
-        data = getIntent().getStringExtra("email");
-        String[] dtas = data.split(":");
-        email = dtas[0];
-        id = dtas[1];
-
-
-        try {
-            System.out.println("Before creating socket");
-            socket = IO.socket("https://asm3android-a0efc67bf4a3.herokuapp.com/");
-            System.out.println("After creating socket");
-            System.out.println(socket.connect());
-
-            socket.on("connect", new Emitter.Listener() {
-                @Override
-                public void call(Object... args) {
-                    System.out.println("Connected");
-                }
-
-            });
-            socket.on("disconnect", new Emitter.Listener() {
-
-                @Override
-                public void call(Object... args) {
-                    System.out.println("Disconnected");
-                }
-
-            });
-
-            socket.emit("joinMatchRoom", id);
-
-
-
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        socket.disconnect();
-    }
-
-    @Override
-    public void onItemClick(View view, int position) {
-
-    }
-
-
-    private class GetMatch extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... voids) {
-            jsonString = HttpHandler.getMatch(email, uEmail);
-            Log.d("Match: ", jsonString);
-            return null;
-        }
-
-        protected void onPostExecute(Void avoid) {
-            try {
-                // Parse the response as a JSON object
-                messages = new ArrayList<>();
-                JSONObject responseArr = new JSONObject(jsonString);
-
-                JSONArray conversationObj = responseArr.getJSONArray("conversation");
-                for (int i = 0; i < conversationObj.length(); i++) {
-                   JSONObject messageObj = conversationObj.getJSONObject(i);
-                   String sender = messageObj.getString("sender");
-                   String message = messageObj.getString("message");
-                   messages.add(sender + " : " + message);
-                }
-
-                RecyclerView recyclerView = findViewById(R.id.messageListView);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                adapter = new MyMatchesRecyclerViewAdapter(getApplicationContext(), messages);
-                adapter.setClickListener((MyMatchesRecyclerViewAdapter.ItemClickListener) getApplicationContext());
-                recyclerView.setAdapter(adapter);
-
-
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
+        Intent intent = getIntent();
+        if(intent != null){
+            Bundle bundle = intent.getExtras();
+            if (bundle != null) {
+                email = (String) bundle.get("email");
             }
         }
+        email = getIntent().getStringExtra("email");
 
-    }
 
-    public void sendMessage(View view) {
-        TextView message = findViewById(R.id.messageInputField);
-        String messageData = (String) message.getText();
-        messages.add(email + " : " + messageData);
+//
+        // Get the pair of users (replace these with the actual user IDs)
 
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("sender", email);
-            jsonObject.put("message", messageData);
-            jsonObject.put("matchId", id);
-        } catch (JSONException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        if(email != null) {
+            TextView textView = (TextView) findViewById(R.id.sender);
+            textView.setText(email);
+            // Generate a unique room key based on the pair of users
+            String roomKey = getRoomKey( "handsomethinh0@gmail.com", email);
+
+            // Create a DatabaseReference for the specific room
+
+            roomReference = FirebaseDatabase.getInstance().getReference().child("chatRooms").child(roomKey).child("messages");
+            Toast.makeText(this, roomReference.toString(), Toast.LENGTH_SHORT).show();
+
+            messages = new ArrayList<>();
+            if(roomReference != null) {
+                Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
+                displayChatMessages(roomReference);
+
+
+                // Listen for new messages
+                roomReference.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        ChatMessage chatMessage = dataSnapshot.getValue(ChatMessage.class);
+                        messages.add(chatMessage);
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        // Handle changed messages if needed
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        // Handle removed messages if needed
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                        // Handle moved messages if needed
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Handle errors if needed
+                    }
+                });
+
+
+                Button sendBtn = findViewById(R.id.sendMessage);
+                sendBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        EditText input = findViewById(R.id.inputMessage);
+                        // Read the input field and push a new instance
+                        // of ChatMessage to the Firebase database
+                        roomReference.push().setValue(new ChatMessage(input.getText().toString(), "handsomethinh0@gmail.com"));
+                        // Clear the input
+                        input.setText("");
+                    }
+                });
+            }
+
         }
-        socket.emit("sendMessage", jsonObject);
-        socket.on("messageReceived", new Emitter.Listener() {
-            @Override
-            public void call(Object... args) {
-                // JSONObject userJsonObject = new JSONObject(args[0]);
-                // System.out.println(args[0]);
-                try {
-                    JSONObject userJsonObject = new JSONObject(args[0].toString());
-                    // System.out.println(args[0]);
-                    String sender = userJsonObject.getString("sender");
-                    String message = userJsonObject.getString("message");
-                    messages.add(sender + " : " + message);
-                    adapter.notifyItemInserted(adapter.getItemCount() - 1);
 
-                } catch (JSONException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+        Button back = (Button) findViewById(R.id.quitMessage);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
-
     }
 
-    public void quitMessage(View view) {
-        finish();
+    private String getRoomKey(String user1, String user2) {
+        ArrayList<String> userList = new ArrayList<>();
+        userList.add(user1);
+        userList.add(user2);
+        Collections.sort(userList);
+        String encodedUser1 = Base64.encodeToString(userList.get(0).getBytes(), Base64.NO_WRAP);
+        String encodedUser2 = Base64.encodeToString(userList.get(1).getBytes(), Base64.NO_WRAP);
+        return encodedUser1 + "_" + encodedUser2;
+    }
+
+    private void displayChatMessages(DatabaseReference roomReference) {
+        ListView listOfMessages = (ListView) findViewById(R.id.list_of_messages);
+        adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,
+                R.layout.message, roomReference) {
+            @Override
+            protected void populateView(View v, ChatMessage model, int position) {
+                // Your existing code to populate the view
+                TextView messageText = (TextView) v.findViewById(R.id.message_text);
+                TextView messageUser = (TextView) v.findViewById(R.id.message_user);
+                TextView messageTime = (TextView) v.findViewById(R.id.message_time);
+
+                messageText.setText(model.getMessageText());
+                messageUser.setText(model.getMessageUser());
+                messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)", model.getMessageTime()));
+            }
+        };
+        listOfMessages.setAdapter(adapter);
     }
 }

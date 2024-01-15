@@ -4,43 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FDFDFD"
     tools:context=".Signup">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center">
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="10dp"
-            android:layout_gravity="center"/>
-<!--        android:src="@drawable/broom"-->
-        <EditText
-            android:id="@+id/email"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_margin="10dp"
-            android:hint="Email"
-            android:inputType="textPersonName"
-            android:layout_gravity="center"/>
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:layout_margin="10dp"
-            android:hint="Password"
-            android:inputType="textPassword"
-            android:layout_gravity="center"/>
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="Sign Up"
-            android:onClick="goToInterest"
-            android:layout_gravity="center"/>
-    </LinearLayout>
-</ScrollView>
+
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="vertical"
+android:layout_gravity="center"
+android:padding="16dp">
+
+<ImageView
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:layout_margin="10dp"
+    android:layout_gravity="center"
+    android:src="@drawable/dating_svgrepo_com"
+
+/>
+
+<EditText
+    android:id="@+id/email"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:layout_margin="10dp"
+    android:hint="Email"
+    android:inputType="textPersonName"
+    android:background="#FFFFFF"
+android:padding="10dp"
+android:layout_gravity="center"/>
+
+<EditText
+    android:id="@+id/password"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:ems="10"
+    android:layout_margin="10dp"
+    android:hint="Password"
+    android:inputType="textPassword"
+    android:background="#FFFFFF"
+android:padding="10dp"
+android:layout_gravity="center"/>
+
+<Button
+    android:id="@+id/button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:text="Sign Up"
+    android:onClick="goToInterest"
+    android:background="#64B5F6"
+android:textColor="#FFFFFF"
+android:padding="12dp"
+android:layout_gravity="center"/>
+
+</LinearLayout>
+    </ScrollView>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "73061320710",
+    "project_id": "asm3-412ea",
+    "storage_bucket": "asm3-412ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:73061320710:android:a5f3ecf507b6e5a9b7db87",
+        "android_client_info": {
+          "package_name": "myapk.asm3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD4RcY26Xt9JUoOWD-_OHc19ZtRarJeoWs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

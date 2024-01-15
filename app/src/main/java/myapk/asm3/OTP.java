@@ -18,6 +18,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,7 +40,6 @@ public class OTP extends AppCompatActivity {
     protected IntentFilter intentFilter;
     public static final String OTP_CODE = "myapk.asm3.ACTION_OTP_CODE";
 
-
     private String status ="";
     private String email;
     private String password = "";
@@ -59,29 +59,48 @@ public class OTP extends AppCompatActivity {
 
         otp1 = findViewById(R.id.otp1);
 
-        // Create account info
-        email = getIntent().getStringExtra("email");
-        password = getIntent().getStringExtra("password");
-        userName = getIntent().getStringExtra("name");
-        userDescription = getIntent().getStringExtra("description");
-        userAge = getIntent().getIntExtra("age", 0);
+        if(getIntent() != null) {
+            // Create account info
+            email = getIntent().getStringExtra("email");
+            password = getIntent().getStringExtra("password");
+            userName = getIntent().getStringExtra("name");
+            userDescription = getIntent().getStringExtra("description");
+            userAge = getIntent().getIntExtra("age", 0);
 //        String p = getIntent().getStringExtra("phone");
 //        userPhone = "+84" + p;
-        userPhone = getIntent().getStringExtra("phone");
-        selectedInterest = getIntent().getStringExtra("interest");
-        selectedGender = getIntent().getStringExtra("gender");
-        selectedPartner = getIntent().getStringExtra("partner");
-        selectedPrograms = getIntent().getStringExtra("program");
-        imageUri = getIntent().getParcelableExtra("pict");
+            userPhone = getIntent().getStringExtra("phone");
+            selectedInterest = getIntent().getStringExtra("interest");
+            selectedGender = getIntent().getStringExtra("gender");
+            selectedPartner = getIntent().getStringExtra("partner");
+            selectedPrograms = getIntent().getStringExtra("program");
+            imageUri = getIntent().getParcelableExtra("pict");
 
-        generateOTP();
+            generateOTP();
 
-        TextView phone = findViewById(R.id.phone);
-        phone.setText(userPhone);
+            TextView phone = findViewById(R.id.phone);
+            phone.setText(userPhone);
 
-        registerService();
-        Intent broadcastIntent = new Intent("myapk.asm3.ACTION_OTP_CODE");
-        sendBroadcast(broadcastIntent);
+//        registerService();
+//        Intent broadcastIntent = new Intent("myapk.asm3.ACTION_OTP_CODE");
+//        sendBroadcast(broadcastIntent);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        Button send = findViewById(R.id.sendSubmit);
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String code = otp1.getText().toString();
+                if(Objects.equals(otpString, code)){
+                    new PostInterests().execute();
+                } else {
+                    Toast.makeText(OTP.this, "Wrong OTP", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        super.onResume();
     }
 
     private void registerService(){
@@ -102,34 +121,37 @@ public class OTP extends AppCompatActivity {
 
         // Concatenate the generated OTP with a message
         otpMessage = "Your OTP is: " + otpString;
+        Toast.makeText(this,otpMessage, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     protected void onDestroy(){
         super.onDestroy();
-        Intent intent = new Intent(OTP.this, MyService.class);
-        stopService(intent);
+//        Intent intent = new Intent(OTP.this, MyService.class);
+//        stopService(intent);
     }
 
-    public void Update(View view){
-        String code = otp1.getText().toString();
-        if(Objects.equals(otpString, code)){
-            new PostInterests().execute();
-        } else {
-            Toast.makeText(OTP.this, "Wrong OTP", Toast.LENGTH_SHORT).show();
-        }
 
-    }
+
+//    public void Update(View view){
+//        String code = otp1.getText().toString();
+//        if(Objects.equals(otpString, code)){
+//            new PostInterests().execute();
+//        } else {
+//            Toast.makeText(OTP.this, "Wrong OTP", Toast.LENGTH_SHORT).show();
+//        }
+//    }
     //    POST DATA
     private class PostInterests extends AsyncTask<Void,Void,Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            Multipart m1 = null;
             try {
-                m1 = new Multipart();
-
+                Multipart m1 = new Multipart("https://fair-lime-crocodile.cyclic.app");
+//                Toast.makeText(getApplicationContext(),"before",Toast.LENGTH_SHORT).show();
                 // Check for READ_EXTERNAL_STORAGE permission
+                Log.d("File: ", "before");
                 if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+//                    Toast.makeText(getApplicationContext(),"after",Toast.LENGTH_SHORT).show();
                     // Get the file path from the Uri
                     String imagePath = getImagePath(imageUri);
                     if (imagePath != null) {
@@ -152,13 +174,41 @@ public class OTP extends AppCompatActivity {
                             m1.addFormField("status", "normal");
                             m1.addFormField("age", String.valueOf(userAge));
                             m1.addFormField("phone", String.valueOf(userPhone));
-                            status = m1.finish();
+////                    Log.d("File: ", String.valueOf(imageFile));
+                            Log.d("File: ", String.valueOf(userName));
+//                            Log.d("File: ", String.valueOf(m1));
+                            m1.finish();
+//                            Toast.makeText(getApplicationContext(),"afterAll"+m1.finish(),Toast.LENGTH_SHORT).show();
                         } else {
                             Log.d("FileError", "Image file does not exist!");
                         }
+
                     } else {
                         Log.d("FileError", "Failed to get image path from URI.");
                     }
+
+//                    m1.addFormField("userName", userName);
+//                    m1.addFormField("userName", userName);
+//                    Log.d("FileSend: ", "File: " + userName);
+//                    m1.addFormField("email", email);
+//                    m1.addFormField("password", password);
+//                    m1.addFormField("role", "user");
+//                    m1.addFormField("latitude", "10.2222");
+//                    m1.addFormField("longitude", "67.89989");
+//                    m1.addFormField("description", userDescription);
+//                    m1.addFormField("gender", selectedGender);
+//                    m1.addFormField("partner", selectedPartner);
+//                    m1.addFormField("interest", selectedInterest);
+//                    m1.addFormField("program", selectedPrograms);
+//                    m1.addFormField("status", "normal");
+//                    m1.addFormField("age", String.valueOf(userAge));
+//                    m1.addFormField("phone", String.valueOf(userPhone));
+//////                    Log.d("File: ", String.valueOf(imageFile));
+////                            Log.d("File: ", String.valueOf(userName));
+////                            Log.d("File: ", String.valueOf(m1));
+//                    m1.finish();
+
+
                 } else {
                     // Handle the case when READ_EXTERNAL_STORAGE permission is not granted
                     Log.d("PermissionError", "READ_EXTERNAL_STORAGE permission not granted.");
@@ -188,13 +238,10 @@ public class OTP extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             if(status.equals("")){
-                Log.d("SelectedInterest", selectedInterest);
-                Log.d("SelectedGender", selectedGender);
-                Log.d("SelectedPartner", selectedPartner);
-                Log.d("SelectedPrograms", selectedPrograms);
-                Log.d("Pict", String.valueOf(imageUri));
-                Intent intent = new Intent(OTP.this, HomeScreen.class);
+                Toast.makeText(getApplicationContext(),"Successfully Created Account", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(OTP.this, Login.class);
                 startActivity(intent);
+                finish();
             } else {
                 Toast.makeText(OTP.this, "Something's wrong", Toast.LENGTH_SHORT).show();
             }
