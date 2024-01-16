@@ -139,17 +139,17 @@ public class HomeFragment extends Fragment {
         aAge = HomeScreen.aAge;
         aEmail = HomeScreen.aEmail;
         aDescription = HomeScreen.aDescription;
-        if(aEmail.isEmpty() != true) {
-            flingContainer.setVisibility(View.VISIBLE);
+//        if(aEmail.isEmpty() != true) {
+//            flingContainer.setVisibility(View.VISIBLE);
             imageAdapter = new CustomImageAdapter(requireContext(), R.layout.item, aImage, aName, aAge, aDescription, aEmail);
             flingContainer.setAdapter(imageAdapter);
             // Notify the adapter about the changes
             imageAdapter.notifyDataSetChanged();
-        }else{
-            flingContainer.setVisibility(View.GONE);
-            TextView textView = view.findViewById(R.id.homeNoti);
-            textView.setVisibility(View.VISIBLE);
-        }
+//        }else{
+//            flingContainer.setVisibility(View.GONE);
+//            TextView textView = view.findViewById(R.id.homeNoti);
+//            textView.setVisibility(View.VISIBLE);
+//        }
     }
 
     private class GetMates extends AsyncTask<Void, Void, Void> {

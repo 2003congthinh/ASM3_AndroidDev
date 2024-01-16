@@ -101,7 +101,7 @@ public class ChatFragment extends Fragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(requireContext(), ChatActivity.class);
                     intent.putExtra("email", email);
-                    Toast.makeText(requireContext(), intent.toString() + email, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(requireContext(), intent.toString() + email, Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                 }
             });

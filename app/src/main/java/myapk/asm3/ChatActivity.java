@@ -62,7 +62,7 @@ public class ChatActivity extends AppCompatActivity {
 
             messages = new ArrayList<>();
             if(roomReference != null) {
-                Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
                 displayChatMessages(roomReference);
 
 
@@ -127,9 +127,9 @@ public class ChatActivity extends AppCompatActivity {
         userList.add(user1);
         userList.add(user2);
         Collections.sort(userList);
-        String encodedUser1 = Base64.encodeToString(userList.get(0).getBytes(), Base64.NO_WRAP);
-        String encodedUser2 = Base64.encodeToString(userList.get(1).getBytes(), Base64.NO_WRAP);
-        return encodedUser1 + "_" + encodedUser2;
+        // Concatenate and encode the sorted user strings
+        String encodedUsers = Base64.encodeToString(String.join("_", userList).getBytes(), Base64.NO_WRAP);
+        return encodedUsers;
     }
 
     private void displayChatMessages(DatabaseReference roomReference) {
