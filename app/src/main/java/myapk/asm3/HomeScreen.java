@@ -46,7 +46,7 @@ public class HomeScreen extends AppCompatActivity {
     // Bottom navigation
     private BottomNavigationView bottomNav;
 //    private static String userEmail = HttpHandler.loginEmail;
-    private static String userEmail = HttpHandler.loginEmail;
+    static String userEmail = HttpHandler.loginEmail;
 
     private static String status, statusMates, statusProfile, statusMatches ="";
     private FrameLayout menu;

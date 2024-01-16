@@ -29,7 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MyService extends Service {
-    private static String userEmail = "handsomethinh0@gmail.com";
+    private static String userEmail = HomeScreen.userEmail;
     private static String status, statusMates, statusProfile, statusMatches ="";
     static Location cur_loc;
     private ArrayList<Location> locList;
