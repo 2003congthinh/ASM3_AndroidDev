@@ -45,20 +45,22 @@ import java.util.ArrayList;
 public class HomeScreen extends AppCompatActivity {
     // Bottom navigation
     private BottomNavigationView bottomNav;
+//    private static String userEmail = HttpHandler.loginEmail;
     private static String userEmail = HttpHandler.loginEmail;
+
     private static String status, statusMates, statusProfile, statusMatches ="";
     private FrameLayout menu;
     private Fragment homeFragment;
     private Fragment chatFragment;
     private Fragment profileFragment;
 
-    public static ArrayList<Bitmap> aImage = new ArrayList<>();
-    public static ArrayList<String> aName= new ArrayList<>();
-    public static ArrayList<String> aAge= new ArrayList<>();
-    public static ArrayList<String> aDescription= new ArrayList<>();
-    public static ArrayList<String> aEmail= new ArrayList<>();
+    public static ArrayList<Bitmap> aImage;
+    public static ArrayList<String> aName;
+    public static ArrayList<String> aAge;
+    public static ArrayList<String> aDescription;
+    public static ArrayList<String> aEmail;
 
-    public static ArrayList<String> participants= new ArrayList<>();
+    public static ArrayList<String> participants;
     public static  Users curUser;
 
 
@@ -66,13 +68,24 @@ public class HomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
-
+        HomeScreen.aImage = new ArrayList<>();
+        HomeScreen.aName= new ArrayList<>();
+        HomeScreen.aAge= new ArrayList<>();
+        HomeScreen.aDescription= new ArrayList<>();
+        HomeScreen.aEmail= new ArrayList<>();
+        HomeScreen.participants= new ArrayList<>();
+        HomeScreen.curUser = null;
+        if(getIntent().getStringExtra("uemail") != null) {
+            userEmail = getIntent().getStringExtra("uemail");
+        }
         // Start the LocationUpdateService
         Intent serviceIntent = new Intent(this, MyService.class);
         startService(serviceIntent);
-//        stopService(serviceIntent);
-//        Toast.makeText(getApplicationContext(),"Stop", Toast.LENGTH_SHORT).show();
-
+        stopService(serviceIntent);
+//        Toast.makeText(getApplicationContext(),"Start", Toast.LENGTH_SHORT).show();
+        new GetProfile().execute();
+        new GetMatches().execute();
+        new GetMates().execute();
 
 
 //        Log.d("StatusFrom: ", String.valueOf(HttpHandler.curUser));
@@ -108,10 +121,28 @@ public class HomeScreen extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        new GetProfile().execute();
-        new GetMatches().execute();
-        new GetMates().execute();
+//        Toast.makeText(getApplicationContext(), "Resume", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        HomeScreen.aImage.clear();
+//        HomeScreen.aImage = null;
+//        HomeScreen.aName.clear();
+//        HomeScreen.aName = null;
+//        HomeScreen.aAge.clear();
+//        HomeScreen.aAge = null;
+//        HomeScreen.aDescription.clear();
+//        HomeScreen.aDescription = null;
+//        HomeScreen.aEmail= new ArrayList<>();
+//        HomeScreen.participants.clear();
+//        HomeScreen.participants = null;
+//        HomeScreen.curUser = null;
+//        Toast.makeText(getApplicationContext(), "Stop", Toast.LENGTH_SHORT).show();
+    }
+
+
 
     // Bottom nav handler
     private void switchFragment(Fragment fragment, String tag){
@@ -126,7 +157,7 @@ public class HomeScreen extends AppCompatActivity {
 //            transaction.detach(frag);
         }
 
-        // If fragment doesn't exist yet, create one
+//         If fragment doesn't exist yet, create one
         if (searchfragment == null) {
 //            Toast.makeText(getApplicationContext(), "New" + tag, Toast.LENGTH_SHORT).show();
             transaction.add(R.id.fragment, fragment, tag);
@@ -138,6 +169,7 @@ public class HomeScreen extends AppCompatActivity {
 //            transaction.attach(searchfragment);
 //            transaction.addToBackStack(null); // Add to back stack to enable back navigation
         }
+//        transaction.replace(R.id.fragment, fragment, tag);
         transaction.commit();
     }
 

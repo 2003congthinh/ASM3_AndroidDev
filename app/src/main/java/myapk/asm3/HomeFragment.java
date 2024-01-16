@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
-//        Toast.makeText(getContext(),"Create", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(),"Create Frag", Toast.LENGTH_SHORT).show();
         // Swipe function
         aImage = new ArrayList<>();
         aName = new ArrayList<>();
@@ -124,6 +124,23 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        aImage = HomeScreen.aImage;
+        aName = HomeScreen.aName;
+        aAge = HomeScreen.aAge;
+        aEmail = HomeScreen.aEmail;
+        aDescription = HomeScreen.aDescription;
+        if(aEmail.isEmpty() != true) {
+            flingContainer.setVisibility(View.VISIBLE);
+            imageAdapter = new CustomImageAdapter(requireContext(), R.layout.item, aImage, aName, aAge, aDescription, aEmail);
+            flingContainer.setAdapter(imageAdapter);
+            // Notify the adapter about the changes
+            imageAdapter.notifyDataSetChanged();
+        }else{
+            flingContainer.setVisibility(View.GONE);
+            TextView textView = view.findViewById(R.id.homeNoti);
+            textView.setVisibility(View.VISIBLE);
+        }
+
         return view;
     }
 
@@ -132,24 +149,9 @@ public class HomeFragment extends Fragment {
     public void onResume(){
         super.onResume();
 //        new HomeFragment.GetMates().execute();
-//        Toast.makeText(getContext(),"Resume", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(),"Resume Frag", Toast.LENGTH_SHORT).show();
         // Set up the adapter with the updated data
-        aImage = HomeScreen.aImage;
-        aName = HomeScreen.aName;
-        aAge = HomeScreen.aAge;
-        aEmail = HomeScreen.aEmail;
-        aDescription = HomeScreen.aDescription;
-//        if(aEmail.isEmpty() != true) {
-//            flingContainer.setVisibility(View.VISIBLE);
-            imageAdapter = new CustomImageAdapter(requireContext(), R.layout.item, aImage, aName, aAge, aDescription, aEmail);
-            flingContainer.setAdapter(imageAdapter);
-            // Notify the adapter about the changes
-            imageAdapter.notifyDataSetChanged();
-//        }else{
-//            flingContainer.setVisibility(View.GONE);
-//            TextView textView = view.findViewById(R.id.homeNoti);
-//            textView.setVisibility(View.VISIBLE);
-//        }
+
     }
 
     private class GetMates extends AsyncTask<Void, Void, Void> {

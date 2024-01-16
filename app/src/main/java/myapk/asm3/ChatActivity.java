@@ -26,7 +26,7 @@ import java.util.Collections;
 
 public class ChatActivity extends AppCompatActivity {
 
-    String uEmail = HttpHandler.loginEmail;
+    String uEmail = HomeScreen.curUser.getEmail();
     String email;
     FirebaseListAdapter<ChatMessage> adapter;
     ArrayList<ChatMessage> messages;
@@ -53,12 +53,12 @@ public class ChatActivity extends AppCompatActivity {
             TextView textView = (TextView) findViewById(R.id.sender);
             textView.setText(email);
             // Generate a unique room key based on the pair of users
-            String roomKey = getRoomKey( "handsomethinh0@gmail.com", email);
+            String roomKey = getRoomKey( uEmail, email);
 
             // Create a DatabaseReference for the specific room
 
             roomReference = FirebaseDatabase.getInstance().getReference().child("chatRooms").child(roomKey).child("messages");
-            Toast.makeText(this, roomReference.toString(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, roomReference.toString(), Toast.LENGTH_SHORT).show();
 
             messages = new ArrayList<>();
             if(roomReference != null) {
@@ -104,7 +104,7 @@ public class ChatActivity extends AppCompatActivity {
                         EditText input = findViewById(R.id.inputMessage);
                         // Read the input field and push a new instance
                         // of ChatMessage to the Firebase database
-                        roomReference.push().setValue(new ChatMessage(input.getText().toString(), "handsomethinh0@gmail.com"));
+                        roomReference.push().setValue(new ChatMessage(input.getText().toString(), uEmail));
                         // Clear the input
                         input.setText("");
                     }

@@ -97,6 +97,7 @@ public class Login extends AppCompatActivity {
 //                                    startIntentSenderForResult(
 //                                            result.getPendingIntent().getIntentSender(), REQ_ONE_TAP,
 //                                            null, 0, 0, 0);
+//                                Toast.makeText(getApplicationContext(), "oke", Toast.LENGTH_SHORT).show();
                                 IntentSenderRequest intentSenderRequest = new IntentSenderRequest.Builder(result.getPendingIntent().getIntentSender()).build();
                                 intentSenderRequestActivityResultLauncher.launch(intentSenderRequest);
                             }
@@ -106,6 +107,7 @@ public class Login extends AppCompatActivity {
                             public void onFailure(@NonNull Exception e) {
                                 // No Google Accounts found. Just continue presenting the signed-out UI.
                                 Log.d("TAG", e.getLocalizedMessage());
+//                                Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
                             }
                         });
             }
@@ -144,6 +146,7 @@ public class Login extends AppCompatActivity {
             if(status.equals("Success: OK")){
                 Toast.makeText(Login.this, status, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Login.this, HomeScreen.class);
+                intent.putExtra("uemail", userEmail);
                 startActivity(intent);
             } else {
                 Toast.makeText(Login.this, "Something's wrong", Toast.LENGTH_SHORT).show();
@@ -163,6 +166,7 @@ public class Login extends AppCompatActivity {
             if(status.equals("Success: OK")){
                 Toast.makeText(Login.this, status, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Login.this, HomeScreen.class);
+                intent.putExtra("uemail", userEmail);
                 startActivity(intent);
             } else {
                 Toast.makeText(Login.this, "This is a new account", Toast.LENGTH_SHORT).show();

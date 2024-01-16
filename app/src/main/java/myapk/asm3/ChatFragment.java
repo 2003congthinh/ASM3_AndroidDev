@@ -47,17 +47,6 @@ public class ChatFragment extends Fragment {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_chat, container, false);
 //        Toast.makeText(getContext(),"Create", Toast.LENGTH_SHORT).show();
-        return view;
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-//        new GetProfile().execute();
-//        participants = new ArrayList<>();
-//        participants.add("Hoang:999999");
-//        participants.add("Hoan:888888");
-//        participants.add("Hoa:7777777");
 
         participants = HomeScreen.participants;
 
@@ -82,6 +71,19 @@ public class ChatFragment extends Fragment {
             draw(participants, linearLayoutWrapper, paramsForText);
             scrollView.addView(linearLayoutWrapper);
         }
+
+        return view;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+//        new GetProfile().execute();
+//        participants = new ArrayList<>();
+//        participants.add("Hoang:999999");
+//        participants.add("Hoan:888888");
+//        participants.add("Hoa:7777777");
+
 
 //
 //     Toast.makeText(getContext(),"Resume", Toast.LENGTH_SHORT).show();
