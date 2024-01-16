@@ -142,6 +142,26 @@ public class HomeScreen extends AppCompatActivity {
 //        Toast.makeText(getApplicationContext(), "Stop", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        HomeScreen.aImage.clear();
+        HomeScreen.aImage = null;
+        HomeScreen.aName.clear();
+        HomeScreen.aName = null;
+        HomeScreen.aAge.clear();
+        HomeScreen.aAge = null;
+        HomeScreen.aDescription.clear();
+        HomeScreen.aDescription = null;
+        HomeScreen.aEmail= new ArrayList<>();
+        HomeScreen.participants.clear();
+        HomeScreen.participants = null;
+        HomeScreen.curUser = null;
+//        Toast.makeText(getApplicationContext(), "Stop", Toast.LENGTH_SHORT).show();
+    }
+
+
+
 
 
     // Bottom nav handler
