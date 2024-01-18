@@ -55,8 +55,8 @@ public class CustomImageAdapter extends ArrayAdapter<Bitmap> {
 
         // Set name, age, and description
         nameTextView.setText(name);
-        ageTextView.setText(age);
-        descriptionTextView.setText(description);
+        ageTextView.setText("Age: " +age);
+        descriptionTextView.setText("Description: " + description);
 
         return v;
     }

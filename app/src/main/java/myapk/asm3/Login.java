@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -48,6 +49,7 @@ public class Login extends AppCompatActivity {
 
         // Gmail login function
         oneTapClient = Identity.getSignInClient(this);
+//        oneTapClient = Identity.getSignInClient(this, CredentialsOptions.builder().forceEnableSaveDialog().build());
         signUpRequest = BeginSignInRequest.builder()
                 .setGoogleIdTokenRequestOptions(BeginSignInRequest.GoogleIdTokenRequestOptions.builder()
                         .setSupported(true)
@@ -107,6 +109,11 @@ public class Login extends AppCompatActivity {
                             public void onFailure(@NonNull Exception e) {
                                 // No Google Accounts found. Just continue presenting the signed-out UI.
                                 Log.d("TAG", e.getLocalizedMessage());
+                                new AlertDialog.Builder(Login.this)
+                                        .setTitle("Sign-In Failed")
+                                        .setMessage("There was an error during the sign-in process. Please try again later.")
+                                        .setPositiveButton("OK", null)
+                                        .show();
 //                                Toast.makeText(getApplicationContext(), "fail", Toast.LENGTH_SHORT).show();
                             }
                         });

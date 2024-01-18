@@ -44,10 +44,10 @@ public class HomeFragment extends Fragment {
     private ArrayList<String> aDescription;
     private ArrayList<String> aAge;
     private ArrayList<String> aEmail;
-    private ArrayAdapter<String> arrayAdapter;
+    static ArrayAdapter<String> arrayAdapter;
     private int i;
     View view;
-    SwipeFlingAdapterView flingContainer;
+    static SwipeFlingAdapterView flingContainer;
 
     @Nullable
     @Override
@@ -83,6 +83,13 @@ public class HomeFragment extends Fragment {
                 aDescription.remove(0);
 
                 imageAdapter.notifyDataSetChanged();
+                if(aEmail.isEmpty() == true) {
+                    flingContainer.setVisibility(View.GONE);
+                    TextView textView = view.findViewById(R.id.homeNoti);
+                    textView.setVisibility(View.VISIBLE);
+                    textView.setText("Out of Mates...");
+                }
+
             }
 
             @Override
@@ -102,7 +109,10 @@ public class HomeFragment extends Fragment {
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
 //                Toast.makeText(requireContext(), "Out of image", Toast.LENGTH_SHORT).show();
-
+//                flingContainer.setVisibility(View.GONE);
+//                TextView textView = view.findViewById(R.id.homeNoti);
+//                textView.setVisibility(View.VISIBLE);
+//                textView.setText("Out of Potential Mates...");
             }
 
             @Override
@@ -149,8 +159,9 @@ public class HomeFragment extends Fragment {
     public void onResume(){
         super.onResume();
 //        new HomeFragment.GetMates().execute();
-//        Toast.makeText(getContext(),"Resume Frag", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(),"Resume HomeFrag", Toast.LENGTH_SHORT).show();
         // Set up the adapter with the updated data
+
 
     }
 
@@ -240,6 +251,7 @@ public class HomeFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+//            Toast.makeText(requireContext(), status, Toast.LENGTH_SHORT).show();
             // Handle post-execution tasks if needed
             // You can access the status returned by the postLocation method here
         }

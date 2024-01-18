@@ -46,7 +46,7 @@ public class HomeScreen extends AppCompatActivity {
     // Bottom navigation
     private BottomNavigationView bottomNav;
 //    private static String userEmail = HttpHandler.loginEmail;
-    static String userEmail = HttpHandler.loginEmail;
+    static String userEmail;
 
     private static String status, statusMates, statusProfile, statusMatches ="";
     private FrameLayout menu;
@@ -62,6 +62,8 @@ public class HomeScreen extends AppCompatActivity {
 
     public static ArrayList<String> participants;
     public static  Users curUser;
+
+    private int tasksCompleted = 0;
 
 
     @Override
@@ -170,11 +172,18 @@ public class HomeScreen extends AppCompatActivity {
         FragmentTransaction transaction = manage.beginTransaction();
         Fragment searchfragment = manage.findFragmentByTag(tag);
 
+
+
 //        Toast.makeText(getApplicationContext(), String.valueOf(searchfragment == null), Toast.LENGTH_SHORT).show();
 //        // Hide all existing fragments
         for (Fragment frag : manage.getFragments()) {
-            transaction.hide(frag);
-//            transaction.detach(frag);
+//            transaction.hide(frag);
+            transaction.detach(frag);
+//            if(tag.equalsIgnoreCase("Chat")) {
+//                transaction.detach(frag);
+//            }else{
+//                transaction.hide(frag);
+//            }
         }
 
 //         If fragment doesn't exist yet, create one
@@ -184,13 +193,45 @@ public class HomeScreen extends AppCompatActivity {
         }
         else { // re-use the old fragment
 //            Toast.makeText(getApplicationContext(), tag, Toast.LENGTH_SHORT).show();
-            transaction.show(searchfragment);
+//            transaction.show(searchfragment);
 //            transaction.replace(R.id.fragment, searchfragment, tag);
-//            transaction.attach(searchfragment);
+//            if(tag.equalsIgnoreCase("Chat")) {
+////                transaction.detach(frag);
+//                transaction.attach(searchfragment);
+//            }else{
+//                transaction.show(searchfragment);
+//            }
+            transaction.attach(searchfragment);
 //            transaction.addToBackStack(null); // Add to back stack to enable back navigation
         }
 //        transaction.replace(R.id.fragment, fragment, tag);
         transaction.commit();
+    }
+
+    private void checkTasksCompletion() {
+        tasksCompleted++;
+        if (tasksCompleted == 3) {
+            // All tasks are completed, execute the code after tasks
+            Log.d("StatusFrom: ", String.valueOf(curUser));
+            if (curUser != null) {
+                switchFragment(new HomeFragment(), "Home");
+                bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        // Handle bottom navigation item clicks
+                        int itemID = item.getItemId();
+                        if (itemID == R.id.home) {
+                            switchFragment(new HomeFragment(), "Home");
+                        } else if (itemID == R.id.chat) {
+                            switchFragment(new ChatFragment(), "Chat");
+                        } else if (itemID == R.id.profile) {
+                            switchFragment(new ProfileFragment(), "Profile");
+                        }
+                        return true;
+                    }
+                });
+            }
+        }
     }
 
 
@@ -243,27 +284,30 @@ public class HomeScreen extends AppCompatActivity {
                 }
             }
 
-            Log.d("StatusFrom: ", String.valueOf(curUser));
-            if(curUser != null) {
-                switchFragment(new HomeFragment(), "Home");
-                bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        int itemID = item.getItemId();
-                        if (itemID == R.id.home) {
-                            switchFragment(new HomeFragment(), "Home");
-                        } else if (itemID == R.id.chat) {
-                            switchFragment(new ChatFragment(), "Chat");
-                        } else if (itemID == R.id.profile) {
-                            switchFragment(new ProfileFragment(), "Profile");
-                        }
-//                else if (itemID == R.id.heat) {
-//                    switchFragment(new HeatFragment(), false);
-//                }
-                        return true;
-                    }
-                });
-            }
+            checkTasksCompletion();
+
+
+//            Log.d("StatusFrom: ", String.valueOf(curUser));
+//            if(curUser != null) {
+//                switchFragment(new HomeFragment(), "Home");
+//                bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//                    @Override
+//                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                        int itemID = item.getItemId();
+//                        if (itemID == R.id.home) {
+//                            switchFragment(new HomeFragment(), "Home");
+//                        } else if (itemID == R.id.chat) {
+//                            switchFragment(new ChatFragment(), "Chat");
+//                        } else if (itemID == R.id.profile) {
+//                            switchFragment(new ProfileFragment(), "Profile");
+//                        }
+////                else if (itemID == R.id.heat) {
+////                    switchFragment(new HeatFragment(), false);
+////                }
+//                        return true;
+//                    }
+//                });
+//            }
 
 
         }
@@ -324,6 +368,7 @@ public class HomeScreen extends AppCompatActivity {
             }
 
             Log.d("Status: ", curUser.getName());
+            checkTasksCompletion();
 
 
         }
@@ -349,6 +394,7 @@ public class HomeScreen extends AppCompatActivity {
                     throw new RuntimeException(e);
                 }
             }
+            checkTasksCompletion();
         }
 
     }

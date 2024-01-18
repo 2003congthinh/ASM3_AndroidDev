@@ -91,6 +91,8 @@ public class MyService extends Service {
                     if (locList.isEmpty() || (locList.get(0).getLatitude() - cur_loc.getLatitude() > 0.1)
                             && (locList.get(0).getLongitude() - cur_loc.getLongitude() > 0.1)) {
                         new PostLocation().execute();
+//                        new GetMates().execute();
+
                         Log.d("Location: ", cur_loc.getLongitude() + ", " + cur_loc.getLatitude());
                         Toast.makeText(MyService.this, "Location: " + cur_loc.getLongitude() + ", " + cur_loc.getLatitude(), Toast.LENGTH_SHORT).show();
                     }
@@ -120,16 +122,16 @@ public class MyService extends Service {
 //                        JSONObject jsonObject = jsonArray.getJSONObject(i);
 //
 //                        String name = jsonObject.getString("name");
-//                        HttpHandler.aName.add(name);
+//                        HomeScreen.aName.add(name);
 //
 //                        String age = jsonObject.getString("age");
-//                        HttpHandler.aAge.add(age);
+//                        HomeScreen.aAge.add(age);
 //
 //                        String description = jsonObject.getString("description");
-//                        HttpHandler.aDescription.add(description);
+//                        HomeScreen.aDescription.add(description);
 //
 //                        String email = jsonObject.getString("email");
-//                        HttpHandler.aEmail.add(email);
+//                        HomeScreen.aEmail.add(email);
 //
 //                        // Get the "avatarImg" object from the user object
 //                        JSONObject avatarImgObj = jsonObject.getJSONObject("avatarImg");
@@ -143,7 +145,8 @@ public class MyService extends Service {
 //                            imageBytes[j] = (byte) dataArray.getInt(j);
 //                        }
 //                        Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-//                        HttpHandler.aImage.add(bitmap);
+//                        HomeScreen.aImage.add(bitmap);
+//
 //
 //
 //                    }
@@ -157,6 +160,7 @@ public class MyService extends Service {
 //        }
 //
 //    }
+
 //    private class GetProfile extends AsyncTask<Void, Void, Void> {
 //        @Override
 //        protected Void doInBackground(Void... voids) {
