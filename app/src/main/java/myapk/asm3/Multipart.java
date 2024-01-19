@@ -5,6 +5,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
 
+//HTTP FormData Multipart Class Referenced From an Answer on StackOverflow by Author Georgevik in 2016:
+//https://stackoverflow.com/questions/11766878/sending-files-using-post-with-httpurlconnection
 public class Multipart {
         private HttpURLConnection httpConn;
         private DataOutputStream request;
