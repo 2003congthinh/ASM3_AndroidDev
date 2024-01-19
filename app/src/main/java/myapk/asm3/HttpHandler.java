@@ -17,18 +17,10 @@ import java.util.ArrayList;
 
 public class HttpHandler {
     public static String loginEmail = "";
-//    public static ArrayList<Bitmap> aImage = new ArrayList<>();
-//    public static ArrayList<String> aName= new ArrayList<>();
-//    public static ArrayList<String> aAge= new ArrayList<>();
-//    public static ArrayList<String> aDescription= new ArrayList<>();
-//    public static ArrayList<String> aEmail= new ArrayList<>();
-//
-//    public static ArrayList<String> participants= new ArrayList<>();
-//    public static  Users curUser;
-
 //    static String URL = "http://192.168.55.107:8888";
 //    static String URL = "http://192.168.155.62:8888";
-    static String URL = "https://fair-lime-crocodile.cyclic.app";
+//    static String URL = "https://fair-lime-crocodile.cyclic.app";
+    static String URL = "https://asm3android-a0efc67bf4a3.herokuapp.com";
 
     private HttpURLConnection httpConn;
     private DataOutputStream request;

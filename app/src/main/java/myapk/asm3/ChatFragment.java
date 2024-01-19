@@ -46,31 +46,6 @@ public class ChatFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_chat, container, false);
-//        Toast.makeText(getContext(),"Create", Toast.LENGTH_SHORT).show();
-
-//        participants = HomeScreen.participants;
-//
-//        ScrollView scrollView = view.findViewById(R.id.matches);
-//        scrollView.removeAllViews();
-//
-//        LinearLayout.LayoutParams paramsForText = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        paramsForText.setMargins(50, 10, 50, 10);
-//        ViewGroup.LayoutParams paramsForLin = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//
-//        LinearLayout linearLayoutWrapper = new LinearLayout(requireContext());
-//        linearLayoutWrapper.setLayoutParams(paramsForLin);
-//        linearLayoutWrapper.setOrientation(LinearLayout.VERTICAL);
-//
-//        if (participants.isEmpty() == true) {
-//            TextView textView = new TextView(requireContext());
-//            textView.setLayoutParams(paramsForText);
-//            textView.setText("Sorry \n No Available \n Matches");
-//            textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-//            scrollView.addView(textView);
-//        } else {
-//            draw(participants, linearLayoutWrapper, paramsForText);
-//            scrollView.addView(linearLayoutWrapper);
-//        }
 
         return view;
     }
@@ -78,40 +53,7 @@ public class ChatFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
-//        Toast.makeText(requireContext(), "ChatFrag Resume", Toast.LENGTH_SHORT).show();
         new GetProfile().execute();
-//        participants = new ArrayList<>();
-//        participants.add("Hoang:999999");
-//        participants.add("Hoan:888888");
-//        participants.add("Hoa:7777777");
-
-//        participants = HomeScreen.participants;
-
-//        ScrollView scrollView = view.findViewById(R.id.matches);
-//        scrollView.removeAllViews();
-//
-//        LinearLayout.LayoutParams paramsForText = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        paramsForText.setMargins(50, 10, 50, 10);
-//        ViewGroup.LayoutParams paramsForLin = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//
-//        LinearLayout linearLayoutWrapper = new LinearLayout(requireContext());
-//        linearLayoutWrapper.setLayoutParams(paramsForLin);
-//        linearLayoutWrapper.setOrientation(LinearLayout.VERTICAL);
-//
-//        if (participants.isEmpty() == true) {
-//            TextView textView = new TextView(requireContext());
-//            textView.setLayoutParams(paramsForText);
-//            textView.setText("Sorry \n No Available \n Matches");
-//            textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-//            scrollView.addView(textView);
-//        } else {
-//            draw(participants, linearLayoutWrapper, paramsForText);
-//            scrollView.addView(linearLayoutWrapper);
-//        }
-
-
-//
-//     Toast.makeText(getContext(),"Resume", Toast.LENGTH_SHORT).show();
     }
 
     public void draw(ArrayList<String> matches, LinearLayout linearLayout, LinearLayout.LayoutParams params){

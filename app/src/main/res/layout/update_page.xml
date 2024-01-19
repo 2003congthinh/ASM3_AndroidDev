@@ -4,14 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
     tools:context=".UpdatePage">
 
 <LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:orientation="vertical"
-android:padding="16dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
 
     <Button
         android:id="@+id/quitUpdate"
@@ -20,225 +19,219 @@ android:padding="16dp">
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:backgroundTint="#B0B0B0"
         android:text="Back"
         android:textAllCaps="true"
         tools:ignore="MissingConstraints"/>
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Let's Update Your Profile"
-    android:textSize="30sp"
-    android:layout_gravity="center"
-    android:layout_marginBottom="24dp"
-    android:textColor="#333333"/>
-
-<!-- Name -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginBottom="16dp">
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="What is your name."
-        android:textSize="20sp"
+        android:text="Let's Update Your Profile"
+        android:textSize="30sp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="24dp"
         android:textColor="#333333"/>
 
-    <EditText
-        android:id="@+id/userName"
+    <!-- Name -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:inputType="text"
-        android:backgroundTint="#FFFFFF"
-    android:hint="Your name?"/>
-</LinearLayout>
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp">
 
-<!-- Phone Number -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginBottom="16dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What is your name."
+            android:textSize="20sp"
+            android:textColor="#333333"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="What is your phone number."
-        android:textSize="20sp"
-        android:textColor="#333333"/>
+        <EditText
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:inputType="text"
+            android:hint="Your name?"/>
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/userPhone"
+    <!-- Phone Number -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:inputType="number"
-        android:backgroundTint="#FFFFFF"
-    android:hint="Your number?"/>
-</LinearLayout>
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp">
 
-<!-- Age -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginBottom="16dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What is your phone number."
+            android:textSize="20sp"
+            android:textColor="#333333"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="What is your age."
-        android:textSize="20sp"
-        android:textColor="#333333"/>
+        <EditText
+            android:id="@+id/userPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:inputType="number"
+        android:hint="Your number?"/>
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/userAge"
+    <!-- Age -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:inputType="number"
-        android:backgroundTint="#FFFFFF"
-    android:hint="Your age?"/>
-</LinearLayout>
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp">
 
-<!-- Short Description -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginBottom="16dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What is your age."
+            android:textSize="20sp"
+            android:textColor="#333333"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Please tell us a short description of yourself."
-        android:textSize="20sp"
-        android:textColor="#333333"/>
+        <EditText
+            android:id="@+id/userAge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:inputType="number"
+            android:hint="Your age?"/>
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/userDescription"
+    <!-- Short Description -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:inputType="text"
-        android:backgroundTint="#FFFFFF"
-    android:hint="Your information?"/>
-</LinearLayout>
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp">
 
-<!-- Interest -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginBottom="16dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please tell us a short description of yourself."
+            android:textSize="20sp"
+            android:textColor="#333333"/>
 
-    <TextView
+        <EditText
+            android:id="@+id/userDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:inputType="text"
+        android:hint="Your information?"/>
+    </LinearLayout>
+
+    <!-- Interest -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Let us know what is your interest"
+            android:textSize="20sp"
+            android:textColor="#333333"/>
+
+        <Spinner
+            android:id="@+id/interest"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="#FFFFFF"/>
+    </LinearLayout>
+
+    <!-- Program -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Let us know which programs you entered"
+            android:textSize="20sp"
+            android:textColor="#333333"/>
+
+        <Spinner
+            android:id="@+id/program"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="#FFFFFF"/>
+    </LinearLayout>
+
+    <!-- Gender -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Let us know what is your gender"
+            android:textSize="20sp"
+            android:textColor="#333333"/>
+
+        <Spinner
+            android:id="@+id/sex"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="#FFFFFF"/>
+    </LinearLayout>
+
+    <!-- Interested Partner -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Let us know who you wanna meet"
+            android:textSize="20sp"
+            android:textColor="#333333"/>
+
+        <Spinner
+            android:id="@+id/interested_partner"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="#FFFFFF"/> <!-- White background -->
+    </LinearLayout>
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Let us know what is your interest"
-        android:textSize="20sp"
-        android:textColor="#333333"/>
-
-    <Spinner
-        android:id="@+id/interest"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#FFFFFF"/>
-</LinearLayout>
-
-<!-- Program -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginBottom="16dp">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Let us know which programs you entered"
-        android:textSize="20sp"
-        android:textColor="#333333"/>
-
-    <Spinner
-        android:id="@+id/program"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#FFFFFF"/>
-</LinearLayout>
-
-<!-- Gender -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginBottom="16dp">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Let us know what is your gender"
-        android:textSize="20sp"
-        android:textColor="#333333"/>
-
-    <Spinner
-        android:id="@+id/sex"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#FFFFFF"/>
-</LinearLayout>
-
-<!-- Interested Partner -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginBottom="16dp">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Let us know who you wanna meet"
-        android:textSize="20sp"
-        android:textColor="#333333"/>
-
-    <Spinner
-        android:id="@+id/interested_partner"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#FFFFFF"/> <!-- White background -->
-</LinearLayout>
-
-<!-- Submit Button -->
-<Button
-    android:id="@+id/submit"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="SUBMIT"
-    android:layout_gravity="center"
-    android:textColor="#FFFFFF"
-    android:backgroundTint="#B0B0B0"
-    android:onClick="Submit"/>
-</LinearLayout>
+        android:text="SUBMIT"
+        android:layout_gravity="center"
+        android:textColor="#FFFFFF"
+        android:onClick="Submit"/>
+    </LinearLayout>
 </ScrollView>

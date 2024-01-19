@@ -5,15 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<!--    <TextView-->
-<!--        android:id="@+id/helloText"-->
-<!--        android:textSize="40sp"-->
-<!--        android:textColor="@android:color/white"-->
-<!--        android:background="#E339"-->
-<!--        android:gravity="center"-->
-<!--        tools:text="hello_world"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent" />-->
 
     <ImageView
         android:id="@+id/profileImage"
@@ -39,7 +30,7 @@
         android:background="@drawable/dislike" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="280dp"
         android:layout_gravity="bottom"
         android:layout_marginBottom="50dp"
         android:orientation="vertical">
@@ -50,7 +41,7 @@
             android:layout_height="wrap_content"
             android:text="Name"
             android:layout_margin="15dp"
-            android:textSize="60dp"
+            android:textSize="40dp"
             android:textColor="@color/black"
             android:textStyle="bold" />
 

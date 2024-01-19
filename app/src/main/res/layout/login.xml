@@ -5,102 +5,92 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
     tools:context=".Login">
-
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:orientation="vertical"
-android:layout_gravity="center"
-android:padding="20dp">
-
-<ImageView
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    android:layout_gravity="center"
-    android:src="@drawable/dating_svgrepo_com"
-android:contentDescription="@string/app_name" />
-
-<EditText
-    android:id="@+id/email"
-    android:layout_width="300dp"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:hint="Email"
-    android:inputType="textPersonName"
-    android:layout_gravity="center"
-    android:background="#FFFFFF"
-/>
-
-<EditText
-    android:id="@+id/password"
-    android:layout_width="300dp"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:hint="Password"
-    android:inputType="textPassword"
-    android:layout_gravity="center"
-    android:background="#FFFFFF"
-/>
-
-<Button
-    android:id="@+id/button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:text="Login"
-    android:onClick="goToHome"
-    android:layout_gravity="center"
-    android:background="#64B5F6"
-/>
-
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="or"
-    android:textSize="20sp"
-    android:layout_gravity="center_horizontal"/>
-
-<androidx.cardview.widget.CardView
-    android:id="@+id/gmailBtn"
-    android:layout_width="240dp"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="30dp"
-    android:layout_gravity="center_horizontal"
-    app:cardBackgroundColor="#795548">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:padding="20dp">
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/gmail"
-            android:layout_margin="10dp"/>
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:src="@drawable/dating_svgrepo_com"
+            android:contentDescription="@string/app_name" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Email"
+            android:inputType="textPersonName"
+            android:layout_gravity="center" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:layout_gravity="center" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Login"
+            android:onClick="goToHome"
+            android:layout_gravity="center" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login/Signup with Gmail"
-            android:layout_gravity="center_vertical"
-            android:textColor="#FFFFFF"
-        />
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+            android:text="or"
+            android:textSize="20sp"
+            android:layout_gravity="center_horizontal"/>
 
-<Button
-    android:id="@+id/goToSignupBtn"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:text="Don't have an account?"
-    android:onClick="goToSignup"
-    android:layout_gravity="center"
-    android:background="#64B5F6"
-/>
-</LinearLayout>
-    </ScrollView>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/gmailBtn"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:cardCornerRadius="30dp"
+            android:layout_gravity="center_horizontal"
+            app:cardBackgroundColor="#c71610">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/gmail"
+                    android:layout_margin="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Login/Signup with Gmail"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/goToSignupBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="Don't have an account?"
+            android:onClick="goToSignup"
+            android:layout_gravity="center" />
+    </LinearLayout>
+</ScrollView>

@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/matchBar"
+    android:orientation="horizontal"
+    android:padding="16dp"
+    tools:ignore="MissingConstraints">
 
-
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/matchBar"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        tools:ignore="MissingConstraints">
-
-        <!-- Contact's Profile Picture -->
-        <ImageView
-            android:id="@+id/matchImage"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:contentDescription="profile" />
+    <!-- Contact's Profile Picture -->
+    <ImageView
+        android:id="@+id/matchImage"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:contentDescription="profile" />
 <!--        android:src=""-->
 
-        <TextView
-            android:id="@+id/matchName"
-            android:layout_gravity="center_vertical"
-            android:text="Hoang"
-            android:textSize="22dp"
-            android:layout_marginStart="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/matchName"
+        android:layout_gravity="center_vertical"
+        android:text="Hoang"
+        android:textSize="22dp"
+        android:layout_marginStart="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
-        <!-- Other Chat Header Elements -->
+    <!-- Other Chat Header Elements -->
 
-    </LinearLayout>
+</LinearLayout>
 

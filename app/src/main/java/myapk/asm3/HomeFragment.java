@@ -94,25 +94,15 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onLeftCardExit(Object dataObject) {
-                //Do something on the left!
-                //You also have access to the original object.
-                //If you want to use it just cast it (String) dataObject
-//                Toast.makeText(requireContext(), "Left!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRightCardExit(Object dataObject) {
                 new PostMatches().execute();
-//                Toast.makeText(requireContext(), "Name: " + imgName + ", " + "Email: " + imgEmail, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
-//                Toast.makeText(requireContext(), "Out of image", Toast.LENGTH_SHORT).show();
-//                flingContainer.setVisibility(View.GONE);
-//                TextView textView = view.findViewById(R.id.homeNoti);
-//                textView.setVisibility(View.VISIBLE);
-//                textView.setText("Out of Potential Mates...");
             }
 
             @Override
@@ -158,11 +148,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
-//        new HomeFragment.GetMates().execute();
-//        Toast.makeText(getContext(),"Resume HomeFrag", Toast.LENGTH_SHORT).show();
-        // Set up the adapter with the updated data
-
-
     }
 
     private class GetMates extends AsyncTask<Void, Void, Void> {
@@ -211,17 +196,6 @@ public class HomeFragment extends Fragment {
                         imageBytes[j] = (byte) dataArray.getInt(j);
                     }
 
-//                    // Create a StringBuilder to concatenate the Base64 strings
-//                    StringBuilder base64StringBuilder = new StringBuilder();
-//
-//                    // Concatenate Base64 strings from the JSONArray
-//                    for (int j = 0; j < dataArray.length(); j++) {
-//                        base64StringBuilder.append(dataArray.getString(j));
-//                    }
-//
-//                    // Convert the Base64 string to a byte array
-//                    byte[] imageBytes = Base64.decode(base64StringBuilder.toString(), Base64.DEFAULT);
-
 
                     // Decode the byte array into a Bitmap
                     Bitmap bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
@@ -251,9 +225,6 @@ public class HomeFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-//            Toast.makeText(requireContext(), status, Toast.LENGTH_SHORT).show();
-            // Handle post-execution tasks if needed
-            // You can access the status returned by the postLocation method here
         }
     }
 

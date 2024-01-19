@@ -8,72 +8,67 @@
     android:layout_height="match_parent"
     android:padding="20dp"
     android:orientation="vertical"
-    android:background="#FFFFFF"
     tools:context=".ChatActivity">
 
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_marginBottom="20dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
 
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Back"
-    android:id="@+id/quitMessage"
-    android:textColor="#FFFFFF"
-    android:background="#64B5F6"
-    android:layout_marginEnd="10dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:id="@+id/quitMessage"
+            android:textColor="#FFFFFF"
+            android:background="#64B5F6"
+            android:layout_marginEnd="10dp"/>
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Hoang"
-    android:id="@+id/sender"
-    android:textSize="22dp"
-    android:textColor="#333333"
-android:layout_marginStart="20dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hoang"
+            android:id="@+id/sender"
+            android:textSize="22dp"
+            android:textColor="#333333"
+            android:layout_marginStart="20dp"/>
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="550dp"
+        android:dividerHeight="16dp"
+        android:divider="@android:color/transparent"
+        android:id="@+id/list_of_messages"
+        android:layout_marginBottom="16dp"
+        android:background="#ECEFF1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="#ECEFF1">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Type a message"
+            android:id="@+id/inputMessage"
+            android:backgroundTint="#FFFFFF"
+            android:padding="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            android:id="@+id/sendMessage"
+            android:textColor="#FFFFFF"
+            android:background="#64B5F6"
+            android:padding="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginStart="5dp" />
+    </LinearLayout>
 </LinearLayout>
-
-<ListView
-android:layout_width="match_parent"
-android:layout_height="550dp"
-android:dividerHeight="16dp"
-android:divider="@android:color/transparent"
-android:id="@+id/list_of_messages"
-android:layout_marginBottom="16dp"
-android:background="#ECEFF1"
-    />
-
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="50dp"
-android:orientation="horizontal"
-android:background="#ECEFF1"
-    >
-
-<EditText
-android:layout_width="0dp"
-android:layout_weight="1"
-android:layout_height="wrap_content"
-android:hint="Type a message"
-android:id="@+id/inputMessage"
-android:backgroundTint="#FFFFFF"
-    android:padding="10dp"
-    android:layout_marginEnd="5dp"
-    android:layout_marginStart="5dp"
-    />
-
-<Button
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:text="Send"
-android:id="@+id/sendMessage"
-android:textColor="#FFFFFF"
-    android:background="#64B5F6"
-    android:padding="10dp"
-    android:layout_marginEnd="5dp"
-    android:layout_marginStart="5dp"
-    />
-    </LinearLayout>
-    </LinearLayout>

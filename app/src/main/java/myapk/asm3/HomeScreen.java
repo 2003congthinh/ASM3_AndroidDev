@@ -90,33 +90,8 @@ public class HomeScreen extends AppCompatActivity {
         new GetMates().execute();
 
 
-//        Log.d("StatusFrom: ", String.valueOf(HttpHandler.curUser));
         // Bottom nav
         bottomNav = findViewById(R.id.bottomNav);
-//        menu = findViewById(R.id.fragment);
-
-//        if(HttpHandler.curUser != null) {
-//            switchFragment(new HomeFragment(), "Home");
-//
-//            bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//                @Override
-//                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                    int itemID = item.getItemId();
-//                    if (itemID == R.id.home) {
-//                        switchFragment(new HomeFragment(), "Home");
-//                    } else if (itemID == R.id.chat) {
-//                        switchFragment(new ChatFragment(), "Chat");
-//                    } else if (itemID == R.id.profile) {
-//                        switchFragment(new ProfileFragment(), "Profile");
-//                    }
-////                else if (itemID == R.id.heat) {
-////                    switchFragment(new HeatFragment(), false);
-////                }
-//                    return true;
-//                }
-//            });
-//        }
-
 
     }
 
@@ -129,19 +104,6 @@ public class HomeScreen extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-//        HomeScreen.aImage.clear();
-//        HomeScreen.aImage = null;
-//        HomeScreen.aName.clear();
-//        HomeScreen.aName = null;
-//        HomeScreen.aAge.clear();
-//        HomeScreen.aAge = null;
-//        HomeScreen.aDescription.clear();
-//        HomeScreen.aDescription = null;
-//        HomeScreen.aEmail= new ArrayList<>();
-//        HomeScreen.participants.clear();
-//        HomeScreen.participants = null;
-//        HomeScreen.curUser = null;
-//        Toast.makeText(getApplicationContext(), "Stop", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -172,39 +134,18 @@ public class HomeScreen extends AppCompatActivity {
         FragmentTransaction transaction = manage.beginTransaction();
         Fragment searchfragment = manage.findFragmentByTag(tag);
 
-
-
-//        Toast.makeText(getApplicationContext(), String.valueOf(searchfragment == null), Toast.LENGTH_SHORT).show();
 //        // Hide all existing fragments
         for (Fragment frag : manage.getFragments()) {
-//            transaction.hide(frag);
             transaction.detach(frag);
-//            if(tag.equalsIgnoreCase("Chat")) {
-//                transaction.detach(frag);
-//            }else{
-//                transaction.hide(frag);
-//            }
         }
 
 //         If fragment doesn't exist yet, create one
         if (searchfragment == null) {
-//            Toast.makeText(getApplicationContext(), "New" + tag, Toast.LENGTH_SHORT).show();
             transaction.add(R.id.fragment, fragment, tag);
         }
-        else { // re-use the old fragment
-//            Toast.makeText(getApplicationContext(), tag, Toast.LENGTH_SHORT).show();
-//            transaction.show(searchfragment);
-//            transaction.replace(R.id.fragment, searchfragment, tag);
-//            if(tag.equalsIgnoreCase("Chat")) {
-////                transaction.detach(frag);
-//                transaction.attach(searchfragment);
-//            }else{
-//                transaction.show(searchfragment);
-//            }
+        else {
             transaction.attach(searchfragment);
-//            transaction.addToBackStack(null); // Add to back stack to enable back navigation
         }
-//        transaction.replace(R.id.fragment, fragment, tag);
         transaction.commit();
     }
 
@@ -285,31 +226,6 @@ public class HomeScreen extends AppCompatActivity {
             }
 
             checkTasksCompletion();
-
-
-//            Log.d("StatusFrom: ", String.valueOf(curUser));
-//            if(curUser != null) {
-//                switchFragment(new HomeFragment(), "Home");
-//                bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//                    @Override
-//                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                        int itemID = item.getItemId();
-//                        if (itemID == R.id.home) {
-//                            switchFragment(new HomeFragment(), "Home");
-//                        } else if (itemID == R.id.chat) {
-//                            switchFragment(new ChatFragment(), "Chat");
-//                        } else if (itemID == R.id.profile) {
-//                            switchFragment(new ProfileFragment(), "Profile");
-//                        }
-////                else if (itemID == R.id.heat) {
-////                    switchFragment(new HeatFragment(), false);
-////                }
-//                        return true;
-//                    }
-//                });
-//            }
-
-
         }
 
     }
