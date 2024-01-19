@@ -54,7 +54,7 @@ dependencies {
 
     // Gmail authentication
     implementation("com.google.android.gms:play-services-auth:20.7.0")
-    implementation ("com.google.android.gms:play-services-identity:20.0.0")
+    implementation ("com.google.android.gms:play-services-identity:18.0.1")
 
     // Swipe card
     implementation("com.lorentzos.swipecards:library:1.0.9")
