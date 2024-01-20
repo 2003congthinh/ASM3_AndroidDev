@@ -59,8 +59,8 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 // Finish the hosting activity
                 if (getActivity() != null) {
-//                    Intent intent = new Intent(requireContext(), Login.class);
-//                    startActivity(intent);
+                    Intent intent = new Intent(requireContext(), Login.class);
+                    startActivity(intent);
                     getActivity().finish();
                 }
             }
