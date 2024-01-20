@@ -115,7 +115,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:inputType="text"
-                android:hint="Your age?"/>
+                android:hint="Your description?"/>
         </LinearLayout>
 
 
