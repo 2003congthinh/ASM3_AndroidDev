@@ -28,41 +28,58 @@
         android:layout_margin="10dp"
         android:layout_gravity="right"
         android:background="@drawable/dislike" />
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="50dp"
-        android:orientation="vertical">
+        android:layout_marginBottom="80dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/transparent"/>
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/age"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="9dp"
             android:text="Name"
-            android:layout_margin="15dp"
+            android:textColor="@color/white"
             android:textSize="40dp"
-            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/age"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/description"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="9dp"
             android:text="Age"
-            android:layout_margin="15dp"
+            android:textColor="@color/white"
             android:textSize="40dp"
-            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Description"
+            android:layout_alignParentBottom="true"
             android:layout_margin="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="225dp"
+            android:text="Description"
+            android:textColor="@color/white"
             android:textSize="30sp"
-            android:textColor="@color/black"
             android:textStyle="italic" />
-    </LinearLayout>
+    </RelativeLayout>
 </FrameLayout>
